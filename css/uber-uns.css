@@ -1,0 +1,662 @@
+/***************************************************************
+  1) GLOBAL RESET & BASE
+***************************************************************/
+* {
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box;
+}
+html, body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #0e0e0e; /* overall black background */
+  color: #ccc;              /* default text color: silver-ish */
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+a:hover {
+  color: #ffffff; /* full white on hover for links */
+}
+img, video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+h1, h2, h3 {
+  margin-bottom: 0.75rem;
+  color: #fafafa; /* headings in a lighter silver/white */
+  line-height: 1.2;
+}
+p {
+  margin-bottom: 1rem;
+}
+
+/* Language toggle hidden class */
+.hidden {
+  display: none !important;
+}
+
+/* Body offset for fixed navbar */
+body::before {
+  content: "";
+  display: block;
+  height: 72px; /* matches .navbar height */
+}
+
+/***************************************************************
+  2) NAVBAR
+***************************************************************/
+.navbar {
+  position: fixed;
+  /* Positioning */
+  top: 1rem;            /* space from the top */
+  left: 50%;            /* center horizontally */
+  transform: translateX(-50%);
+  
+  /* Size & layout */
+  width: 80%;           /* or however wide you want it */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  /* Look & feel */
+  background: linear-gradient(360deg, #7f6060, #f90000);  /* gradient color */
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;     /* large radius for that “pill” shape */
+  
+  /* Glow / Shadow */
+  box-shadow: 0 0 10px rgba(175, 27, 27, 0.7),
+              0 0 25px rgba(182, 62, 62, 0.4);
+  
+  /* Layer above page content */
+  z-index: 9999;
+}
+.navbar__logo {
+  flex-shrink: 0;
+}
+.navbar-logo-video {
+  max-height: 50px;
+  object-fit: contain;
+  pointer-events: none;
+  transition: transform 0.3s ease;
+}
+.navbar__logo:hover .navbar-logo-video {
+  transform: scale(1.05);
+}
+
+/* Hamburger for mobile */
+.navbar__toggle {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  margin-left: auto;
+  cursor: pointer;
+}
+.navbar__toggle span {
+  width: 24px;
+  height: 3px;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Desktop menu */
+.navbar__menu {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-left: auto;
+}
+
+/* Nav links */
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 0.5rem 1rem;
+  backdrop-filter: blur(5px);
+  border-radius: 8px;
+}
+.navbar__links a {
+  font-weight: 1000;
+  color: #f5f5f5;
+  position: relative;
+  padding: 0.2rem 0;
+}
+.navbar__links a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 2px;
+  background: #888; /* subtle silver for active link */
+}
+.navbar__links a:hover {
+  color: #fff; 
+}
+
+/* Language btn */
+.lang-btn {
+  background: #a52121;
+  color: #eee;
+  padding: 0.4rem 1rem;
+  border-radius: 100px;
+  font-weight: 500;
+  border: 2px solid rgba(255, 255, 255, 0.5); /* solid blur border */
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* shiny effect */
+}
+.lang-btn:hover {
+  background: #666;
+  border-color: rgba(255, 255, 255, 0.8); /* more shiny on hover */
+}
+/* Mobile nav */
+@media (max-width: 768px) {
+  .navbar {
+    height: 60px;
+  }
+  .navbar__toggle {
+    display: flex;
+    margin-left: auto;
+  }
+  .navbar__menu {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+    background: #1a1a1a;
+    padding: 1rem 2rem;
+    transform: translateY(-120%);
+    transition: transform 0.3s ease;
+    z-index: 99;
+  }
+  .navbar__menu.nav-open {
+    transform: translateY(0);
+  }
+  .navbar__links {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+/***************************************************************
+  3) REUSABLE SECTION STYLES
+***************************************************************/
+section {
+  padding: 4rem 2rem;
+}
+section h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+.text-center {
+  text-align: center;
+}
+.shadow {
+  box-shadow: 0 4px 12px rgba(255,255,255,0.05);
+}
+
+/***************************************************************
+  4) HERO (GER + EN) - TWO-COLUMN LAYOUT
+***************************************************************/
+.hero-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.hero-image {
+  flex: 1 1 400px;
+  max-width: 600px;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(255,255,255,0.05);
+}
+.hero-image img {
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.hero-image:hover img {
+  transform: scale(1.05);
+}
+.hero-text {
+  flex: 1 1 400px;
+  color: #ccc;
+}
+.hero-text h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+.hero-text p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  max-width: 500px;
+  line-height: 1.6;
+}
+@media (max-width: 768px) {
+  .hero-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .hero-text {
+    order: -1; /* put text above image on mobile if you want */
+  }
+}
+
+/***************************************************************
+  5) FOUNDING CARDS (GER/EN)
+***************************************************************/
+.founding-cards-ger, .founding-cards-en {
+  background: #1a1a1a;
+  color: #ddd;
+  text-align: center;
+  clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+}
+.founding-cards-ger h2, .founding-cards-en h2 {
+  color: #fff;
+}
+.founding-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.founding-card {
+  background: #252525;
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: transform 0.3s ease;
+  position: relative;
+}
+.founding-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(255,255,255,0.06);
+}
+.founding-date {
+  display: inline-block;
+  background: 	#f05a28;
+  color: 	#fcf9f8;
+  padding: 0.4rem 0.7rem;
+  border-radius: 4px;
+  margin-bottom: 0.8rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.founding-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: #ddd;
+}
+.founding-card p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #bbb;
+}
+.founder-quote {
+  margin: 2rem auto 0;
+  max-width: 700px;
+  font-style: italic;
+  color: #ccc;
+  background: rgba(255,255,255,0.03);
+  border-left: 4px solid #888;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+/***************************************************************
+  6) CULTURE CAROUSEL (GER/EN)
+***************************************************************/
+.culture-carousel-ger, .culture-carousel-en {
+  background: #0e0e0e;
+}
+.culture-carousel-ger h2, .culture-carousel-en h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+.carousel-intro {
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  text-align: center;
+  color: #ccc;
+}
+.culture-carousel-track {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 1rem;
+  justify-content: center;
+}
+.culture-slide {
+  flex: 0 0 auto;
+  width: 500px;
+  background: #1a1a1a;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+  position: relative;
+  transition: transform 0.3s ease;
+  display: flex;
+  justify-content: center; /* Centers the content horizontally */
+  align-items: center; /
+}
+.culture-slide:hover {
+  transform: translateY(-3px);
+}
+.culture-slide img {
+  object-fit: cover;
+  width: 100%;
+  height: 180px;
+}
+.culture-caption {
+  padding: 1rem;
+}
+.culture-caption p {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: #ccc;
+}
+
+/***************************************************************
+  7) STEPS / PROCESS (GER/EN)
+***************************************************************/
+.steps-process-ger, .steps-process-en {
+  background: #151515;
+  clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);
+  text-align: center;
+}
+.steps-process-ger h2, .steps-process-en h2 {
+  color: #fff;
+  margin-bottom: 2rem;
+}
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.step-box {
+  background: #1f1f1f;
+  border-radius: 6px;
+  padding: 2rem;
+  transition: box-shadow 0.3s ease;
+}
+.step-box:hover {
+  box-shadow: 0 4px 12px rgba(255,255,255,0.05);
+}
+.step-box h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: 	#f05a28;
+}
+.step-box p {
+  font-size: 0.9rem;
+  color: #bbb;
+  line-height: 1.5;
+}
+
+/***************************************************************
+  8) ACHIEVEMENTS ROW (GER/EN)
+***************************************************************/
+.achievements-row-ger, .achievements-row-en {
+  background: #0e0e0e;
+  text-align: center;
+}
+.achievements-row-ger h2, .achievements-row-en h2 {
+  color: #fff;
+  margin-bottom: 2rem;
+}
+.achievements-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  justify-content: center;
+}
+.achievement-item {
+  background: #222;
+  border-radius: 6px;
+  width: 200px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+.achievement-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255,255,255,0.05);
+}
+.achievement-item h3 {
+  font-size: 2rem;
+  color: 	#f05a28;
+  margin-bottom: 0.5rem;
+}
+.achievement-item p {
+  font-size: 0.9rem;
+  color: #aaa;
+}
+.achievements-note {
+  margin-top: 2rem;
+  color: #ccc;
+  line-height: 1.5;
+}
+.achievements-note a {
+  color: 	#f05a28;
+  text-decoration: underline;
+}
+.achievements-note a:hover {
+  color: #ddd;
+}
+
+/***************************************************************
+  9) TEAM GRID (GER/EN)
+***************************************************************/
+.team-grid-ger, .team-grid-en {
+  background: #1a1a1a;
+  text-align: center;
+}
+.team-grid-ger h2, .team-grid-en h2 {
+  color: #fff;
+}
+.team-grid-ger p, .team-grid-en p {
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  color: #ccc;
+}
+.team-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.team-card {
+  background: #2a2a2a;
+  border-radius: 8px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.team-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(255,255,255,0.08);
+}
+.team-card img {
+  width: 100%;
+  height: 255px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.team-card h3 {
+  margin-bottom: 0.3rem;
+  color: #fff;
+}
+.team-card .role {
+  display: block;
+  color: #aaa;
+  margin-bottom: 0.6rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+.team-card p {
+  color: #ccc;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/***************************************************************
+  10) IMPACT HIGHLIGHT (GER/EN)
+***************************************************************/
+.impact-highlight-ger, .impact-highlight-en {
+  background: #111;
+  text-align: center;
+}
+.impact-highlight-ger h2, .impact-highlight-en h2 {
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.impact-highlight-ger p, .impact-highlight-en p {
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  color: #ccc;
+  line-height: 1.6;
+}
+.impact-img-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+.impact-img-row img {
+  width: 300px;
+  border-radius: 6px;
+  box-shadow: 0 4px 14px rgba(255,255,255,0.05);
+  transition: transform 0.3s ease;
+}
+.impact-img-row img:hover {
+  transform: scale(1.03);
+}
+
+/***************************************************************
+  11) VISION SECTION (GER/EN)
+***************************************************************/
+.vision-section-ger, .vision-section-en {
+  background: #1f1f1f;
+}
+.vision-section-ger .vision-content,
+.vision-section-en .vision-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  color: #ccc;
+}
+.vision-section-ger h2, .vision-section-en h2 {
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
+.vision-section-ger p, .vision-section-en p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+/***************************************************************
+  12) CTA SPLIT (GER/EN)
+***************************************************************/
+.cta-split-ger, .cta-split-en {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to right, #222, #444);
+  padding: 3rem 2rem;
+  color: #fff;
+}
+.cta-left {
+  flex: 1 1 300px;
+}
+.cta-left h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+.cta-left p {
+  line-height: 1.6;
+}
+.cta-left a {
+  color: #fff;
+  text-decoration: underline;
+}
+.cta-right {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+/* ============ BRAND-RED FOR CTA SPLIT BUTTONS ============ */
+.cta-right .btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: #f05a28; /* brand red */
+  color: #fff;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.cta-right .btn:hover {
+  background: #d54f22; /* deeper red hover */
+  transform: translateY(-2px);
+}
+@media (max-width: 768px) {
+  .cta-split-ger, .cta-split-en {
+    flex-direction: column;
+    text-align: center;
+  }
+  .cta-right {
+    justify-content: center;
+  }
+}
+
+/***************************************************************
+  13) FOOTER
+***************************************************************/
+.footer {
+  background: #000;
+  text-align: center;
+  padding: 2rem 1rem;
+  font-size: 0.9rem;
+  color: #999;
+  border-top: 1px solid #333;
+}
+.footer p {
+  margin-bottom: 0.5rem;
+}
+.footer a {
+  color: #ccc;
+  text-decoration: underline;
+}
+.footer a:hover {
+  color: #fff;
+}

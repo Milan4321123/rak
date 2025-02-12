@@ -1,0 +1,725 @@
+/***************************************************************
+  1) GLOBAL RESET & BASE
+***************************************************************/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  font-family: "Poppins", sans-serif;
+  background: #0c0c0c; /* Overall dark/black background */
+  color: #ccc;         /* Default text color: silverish */
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+a:hover {
+  color: #fff; /* highlight text on hover for links */
+}
+img, video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.hidden {
+  display: none !important;
+}
+/* If you have a fixed navbar, 
+   offset content below that height if needed */
+body::before {
+  content: "";
+  display: block;
+  height: 70px; /* match navbar height if you want the page not to hide content */
+}
+
+/***************************************************************
+  2) NAVBAR
+***************************************************************/
+.navbar {
+  position: fixed;
+  /* Positioning */
+  top: 1rem;            /* space from the top */
+  left: 50%;            /* center horizontally */
+  transform: translateX(-50%);
+  
+  /* Size & layout */
+  width: 80%;           /* or however wide you want it */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  /* Look & feel */
+  background: linear-gradient(360deg, #7f6060, #f90000);  /* gradient color */
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;     /* large radius for that “pill” shape */
+  
+  /* Glow / Shadow */
+  box-shadow: 0 0 10px rgba(175, 27, 27, 0.7),
+              0 0 25px rgba(182, 62, 62, 0.4);
+  
+  /* Layer above page content */
+  z-index: 9999;
+}
+.navbar__logo {
+  flex-shrink: 0;
+}
+.navbar-logo-video {
+  max-height: 50px;
+  object-fit: contain;
+  pointer-events: none;
+  transition: transform 0.3s ease;
+}
+.navbar__logo:hover .navbar-logo-video {
+  transform: scale(1.05);
+}
+
+/* Hamburger for mobile */
+.navbar__toggle {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  margin-left: auto;
+  cursor: pointer;
+}
+.navbar__toggle span {
+  width: 24px;
+  height: 3px;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Desktop menu */
+.navbar__menu {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-left: auto;
+}
+
+/* Nav links */
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 0.5rem 1rem;
+  backdrop-filter: blur(5px);
+  border-radius: 8px;
+}
+.navbar__links a {
+  font-weight: 1000;
+  color: #f5f5f5;
+  position: relative;
+  padding: 0.2rem 0;
+}
+.navbar__links a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 2px;
+  background: #888; /* subtle silver for active link */
+}
+.navbar__links a:hover {
+  color: #fff; 
+}
+
+/* Language btn */
+.lang-btn {
+  background: #a52121;
+  color: #eee;
+  padding: 0.4rem 1rem;
+  border-radius: 100px;
+  font-weight: 500;
+  border: 2px solid rgba(255, 255, 255, 0.5); /* solid blur border */
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* shiny effect */
+}
+.lang-btn:hover {
+  background: #666;
+  border-color: rgba(255, 255, 255, 0.8); /* more shiny on hover */
+}
+/* Mobile nav */
+@media (max-width: 768px) {
+  .navbar {
+    height: 60px;
+  }
+  .navbar__toggle {
+    display: flex;
+    margin-left: auto;
+  }
+  .navbar__menu {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+    background: #1a1a1a;
+    padding: 1rem 2rem;
+    transform: translateY(-120%);
+    transition: transform 0.3s ease;
+    z-index: 99;
+  }
+  .navbar__menu.nav-open {
+    transform: translateY(0);
+  }
+  .navbar__links {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+/***************************************************************
+  3) HERO ANGLED (GER/EN)
+***************************************************************/
+.services-hero-de, .services-hero-en {
+  position: relative;
+  width: 100%;
+  min-height: 60vh;
+  overflow: hidden;
+  background: #111;
+  margin-bottom: 2rem;
+}
+.hero-container {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+  padding: 3rem 1.5rem;
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+  background: linear-gradient(to right, #111, #333);
+}
+.hero-text-block {
+  flex: 1 1 400px;
+  color: #eee;
+  padding: 1rem;
+}
+.hero-text-block h1 {
+  font-size: 2.4rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+.hero-text-block p {
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+  max-width: 500px;
+}
+/* ========== BRAND-RED FOR HERO BUTTON ========== */
+.hero-btn {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  background: #f05a28; /* brand red */
+  color: #fff;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.hero-btn:hover {
+  background: #d54f22; /* deeper red on hover */
+  transform: translateY(-2px);
+}
+/* Right angled image block */
+.hero-angled-image {
+  flex: 1 1 400px;
+  position: relative;
+  margin-top: 1rem;
+}
+.hero-angled-image img {
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(255,255,255,0.05);
+  transition: transform 0.4s ease;
+  max-height: 400px;
+  object-fit: cover;
+}
+.hero-angled-image:hover img {
+  transform: scale(1.04);
+}
+@media (max-width: 768px) {
+  .hero-container {
+    clip-path: none;
+    background: #222;
+  }
+  .hero-text-block, .hero-angled-image {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+  .hero-angled-image {
+    margin-top: 2rem;
+  }
+  .hero-angled-image img {
+    max-height: 200px;
+  }
+}
+
+/***************************************************************
+  4) APPROACH SPLIT (GER/EN)
+***************************************************************/
+.services-approach-de, .services-approach-en {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+  color: #ccc;
+}
+.services-approach-de h2, .services-approach-en h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+.services-approach-de p, .services-approach-en p {
+  max-width: 700px;
+  margin: 0 auto 2rem auto;
+  line-height: 1.6;
+  color: #ccc;
+  text-align: center;
+}
+.approach-split {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.approach-steps {
+  flex: 1 1 400px;
+}
+.step-box {
+  background: #1a1a1a;
+  margin-bottom: 1.5rem;
+  border-radius: 6px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(255,255,255,0.05);
+  transition: transform 0.3s ease;
+}
+.step-box:hover {
+  transform: translateY(-3px);
+}
+.step-box h3 {
+  color: #aaa;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+.step-box p {
+  font-size: 0.9rem;
+  color: #bbb;
+  line-height: 1.4;
+}
+.approach-visual {
+  flex: 1 1 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.approach-visual img {
+  max-width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 3px 14px rgba(255,255,255,0.05);
+}
+@media (max-width: 768px) {
+  .approach-split {
+    flex-direction: column;
+  }
+  .approach-visual img {
+    max-height: 200px;
+  }
+}
+
+/***************************************************************
+  5) KEY SERVICES (GER/EN)
+***************************************************************/
+.key-services-de, .key-services-en {
+  max-width: 1100px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+  text-align: center;
+}
+.key-services-de h2, .key-services-en h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+.key-services-desc {
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  color: #bbb;
+  line-height: 1.6;
+}
+.key-services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+}
+.key-service-card {
+  background: #1a1a1a;
+  border-radius: 6px;
+  box-shadow: 0 4px 14px rgba(255,255,255,0.05);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+.key-service-card:hover {
+  transform: translateY(-4px);
+}
+.key-service-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-bottom: 1px solid #333;
+}
+.card-content {
+  padding: 1rem;
+}
+.card-content h3 {
+  color: #ccc;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+.card-content p {
+  font-size: 0.9rem;
+  color: #bbb;
+}
+
+/***************************************************************
+  6) INDUSTRIES (GER/EN)
+***************************************************************/
+.industries-overview-de, .industries-overview-en {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #111;
+  margin-bottom: 3rem;
+}
+.industries-overview-de h2, .industries-overview-en h2 {
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.industries-overview-de p, .industries-overview-en p {
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  color: #bbb;
+  line-height: 1.6;
+}
+.industries-de-cards, .industries-en-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: 2rem;
+}
+.industry-tile {
+  background: #1c1c1c;
+  border-radius: 6px;
+  box-shadow: 0 3px 12px rgba(255,255,255,0.05);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  text-align: center;
+}
+.industry-tile:hover {
+  transform: translateY(-3px);
+}
+.industry-tile img {
+  height: 120px;
+  object-fit: cover;
+  border-bottom: 1px solid #333;
+}
+.industry-tile h3 {
+  color: #ccc;
+  margin: 1rem 0;
+  font-size: 1.1rem;
+}
+
+/***************************************************************
+  7) COMPLIANCE (GER/EN)
+***************************************************************/
+.compliance-de, .compliance-en {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+  text-align: center;
+  color: #bbb;
+}
+.compliance-content h2 {
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.compliance-content p {
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+.compliance-highlights {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap: 2rem;
+}
+.compliance-box {
+  background: #1a1a1a;
+  border-radius: 6px;
+  box-shadow: 0 4px 14px rgba(255,255,255,0.05);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  text-align: center;
+  padding: 1rem;
+}
+.compliance-box:hover {
+  transform: translateY(-3px);
+}
+.compliance-box img {
+  height: 120px;
+  object-fit: cover;
+  border-bottom: 1px solid #333;
+}
+.compliance-box h3 {
+  color: #ccc;
+  margin-bottom: 0.3rem;
+  font-size: 1rem;
+}
+.compliance-box p {
+  font-size: 0.85rem;
+  color: #aaa;
+  line-height: 1.4;
+}
+
+/***************************************************************
+  8) ADVANTAGES - HORIZONTAL SCROLL (GER/EN)
+***************************************************************/
+.advantages-scroll-de, .advantages-scroll-en {
+  margin: 3rem auto;
+  max-width: 1200px;
+  padding: 0 1.5rem;
+  color: #ccc;
+}
+.advantages-scroll-de h2, .advantages-scroll-en h2 {
+  font-size: 2rem;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.advantages-scroll-wrapper {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 1rem;
+}
+.adv-slide {
+  min-width: 220px;
+  background: #1c1c1c;
+  border-radius: 6px;
+  box-shadow: 0 3px 10px rgba(255,255,255,0.05);
+  padding: 1.5rem;
+  flex: 0 0 auto;
+  transition: transform 0.3s ease;
+  text-align: center;
+}
+.adv-slide:hover {
+  transform: translateY(-3px);
+}
+.adv-slide h3 {
+  color: #ddd;
+  margin-bottom: 0.5rem;
+}
+.adv-slide p {
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+/***************************************************************
+  9) CASE STUDIES (GER/EN)
+***************************************************************/
+.case-studies-de, .case-studies-en {
+  max-width: 1100px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+}
+.case-studies-de h2, .case-studies-en h2 {
+  color: #fff;
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+.case-de-wrapper, .case-en-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+}
+.case-de-box, .case-en-box {
+  background: #1a1a1a;
+  border-radius: 6px;
+  box-shadow: 0 3px 12px rgba(255,255,255,0.05);
+  padding: 1.5rem;
+  transition: transform 0.3s ease;
+}
+.case-de-box:hover, .case-en-box:hover {
+  transform: translateY(-3px);
+}
+.case-de-box h3, .case-en-box h3 {
+  color: #ccc;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+.case-de-box p, .case-en-box p {
+  font-size: 0.9rem;
+  color: #aaa;
+  line-height: 1.5;
+}
+blockquote {
+  margin-top: 1rem;
+  font-style: italic;
+  background: #2a2a2a;
+  border-left: 4px solid #555;
+  padding: 0.75rem;
+  border-radius: 4px;
+  color: #ccc;
+}
+
+/***************************************************************
+  10) FAQ ACCORDION (GER/EN)
+***************************************************************/
+.faq-accordion-de, .faq-accordion-en {
+  max-width: 1000px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+}
+.faq-accordion-de h2, .faq-accordion-en h2 {
+  font-size: 2rem;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.faq-accordion-wrapper {
+  margin-top: 2rem;
+}
+.faq-accordion-item {
+  background: #1a1a1a;
+  border-radius: 6px;
+  box-shadow: 0 2px 10px rgba(255,255,255,0.03);
+  margin-bottom: 1rem;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+.faq-accordion-item:hover {
+  transform: translateY(-3px);
+}
+.faq-accordion-question {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ccc;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.faq-accordion-question:hover {
+  background: #2a2a2a;
+}
+.faq-accordion-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  background: #222;
+  padding: 0 1rem;
+}
+.faq-accordion-answer p {
+  color: #aaa;
+  font-size: 0.9rem;
+  margin: 0.75rem 0;
+}
+
+/***************************************************************
+  11) FINAL CTA (GER/EN)
+***************************************************************/
+.final-cta-de, .final-cta-en {
+  background: #111;
+  color: #ccc;
+  text-align: center;
+  padding: 3rem 1.5rem;
+}
+.final-cta-inner {
+  max-width: 700px;
+  margin: 0 auto;
+}
+.final-cta-inner h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+.final-cta-inner p {
+  margin-bottom: 2rem;
+  line-height: 1.4;
+}
+/* ========== BRAND-RED FOR CTA BUTTONS ========== */
+.cta-btn {
+  display: inline-block;
+  background: #f05a28; /* brand red */
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.cta-btn:hover {
+  background: #d54f22; /* deeper red on hover */
+  transform: translateY(-2px);
+}
+
+/***************************************************************
+  12) FOOTER
+***************************************************************/
+.footer {
+  background: #1a1a1a;
+  text-align: center;
+  padding: 2rem 1rem;
+  font-size: 0.9rem;
+  color: #999;
+  margin-top: 3rem;
+  border-top: 1px solid #333;
+}
+.footer p {
+  margin-bottom: 0.5rem;
+}
+.footer a {
+  color: #bbb;
+  text-decoration: underline;
+}
+.footer a:hover {
+  color: #fff;
+}
+
+/***************************************************************
+  13) RESPONSIVE TWEAKS
+***************************************************************/
+@media (max-width: 768px) {
+  .hero-container {
+    flex-direction: column;
+    clip-path: none;
+    background: #222;
+    text-align: center;
+  }
+  .hero-angled-image {
+    margin-top: 2rem;
+  }
+  .approach-split {
+    flex-direction: column;
+  }
+  .advantages-scroll-wrapper {
+    padding-bottom: 1.5rem;
+  }
+}
