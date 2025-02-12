@@ -519,7 +519,44 @@ body::before {
   line-height: 1.4;
   color: #eee;
 }
+/* Make it mobile-friendly with a quick media query */
+@media (max-width: 600px) {
+  .process-layers {
+    min-height: 60vh; /* Reduce height for smaller screens */
+    padding: 2rem 1rem;
+  }
+  
+  .section-title {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .process-step-card {
+    min-height: auto; /* Let cards shrink as needed */
+  }
 
+  .step-number {
+    width: 40px;
+    height: 40px;
+    top: -15px;
+    left: -15px;
+    font-size: 1rem;
+  }
+  
+  /* Make the clip-path simpler or remove it entirely,
+     so the background image is clearer */
+  .process-bg-overlay {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    /* or just remove clip-path entirely:
+       clip-path: none;
+    */
+  }
+
+  /* Re-position the background higher, if needed */
+  .process-bg-image {
+    background-position: 70% 30%; /* Adjust the percentage values as needed */
+  }
+}
 /***************************************************************
   7) SERVICES (TABBED)
 ***************************************************************/
