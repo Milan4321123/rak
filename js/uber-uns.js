@@ -2,11 +2,31 @@ document.addEventListener('DOMContentLoaded', () => {
     // =====================================================
     // 1) MOBILE NAVBAR TOGGLE
     // =====================================================
-    const mobileToggle = document.getElementById('mobileToggle');
-    const navbarMenu = document.getElementById('navbar__Menu');
-    if (mobileToggle && navbarMenu) {
-      mobileToggle.addEventListener('click', () => {
-        navbarMenu.classList.toggle('nav-open');
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    
+    if (menuToggle && navMenu) {
+      menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        
+        // Optional: Toggle animation for hamburger icon
+        const spans = menuToggle.querySelectorAll('span');
+        spans.forEach(span => {
+          span.classList.toggle('active');
+        });
+      });
+      
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+          if (navMenu.classList.contains('active')) {
+            navMenu.classList.remove('active');
+            const spans = menuToggle.querySelectorAll('span');
+            spans.forEach(span => {
+              span.classList.remove('active');
+            });
+          }
+        }
       });
     }
   
@@ -38,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Wait a short moment so the document size is calculated
       setTimeout(() => {
         const newDocHeight = document.body.scrollHeight;
-        // The user’s original scroll was ratio * docHeight
+        // The user's original scroll was ratio * docHeight
         const newScrollY = Math.round(newDocHeight * ratio);
         window.scrollTo(0, newScrollY);
       }, 50);

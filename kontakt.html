@@ -2,10 +2,10 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>Kontakt – Job Werke d.o.o.</title>
+  <title>Kontakt – Remix Gradnja</title>
   <meta
     name="description"
-    content="Kontaktieren Sie Job Werke d.o.o. – Ihr Partner für internationales Recruiting. Schreiben Sie uns eine Nachricht, vereinbaren Sie einen Termin oder besuchen Sie uns an unseren Standorten."
+    content="Kontaktieren Sie Remix Gradnja – Ihr Partner für Bau- und Renovierungsprojekte. Schreiben Sie uns eine Nachricht, vereinbaren Sie einen Termin oder besuchen Sie uns an unseren Standorten."
   />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -20,42 +20,51 @@
     crossorigin="anonymous"
   ></script>
 
+  <!-- Design System - Core Styles -->
+  <link rel="stylesheet" href="css/design-system.css" />
+  
   <!-- Placeholder for your black-silver CSS (to be created next) -->
   <link rel="stylesheet" href="css/kontakt.css" />
 </head>
 <body>
   <!-- ================== NAVBAR ================== -->
-  <header class="navbar">
-    <div class="navbar__logo">
-      <img src="assets/videos/logo33.png" style="max-height: 50px; width: auto;" />
-    </div>
-    <!-- Hamburger (mobile) -->
-    <div class="navbar__toggle" id="mobileToggle">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-    <!-- Menu -->
-    <nav class="navbar__menu" id="navbarMenu">
-      <!-- GERMAN LINKS -->
-      <div class="navbar__links german">
-        <a href="index.html">Home</a>
-        <a href="uber-uns.html">Über uns</a>
-        <a href="dienstleistungen.html">Dienstleistungen</a>
-        <a href="arbeiten.html">Mit uns arbeiten</a>
-        <a href="kontakt.html" class="active">Kontakt</a>
+  <header class="header">
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <img src="assets/videos/logo33.png" alt="Remix Gradnja Logo">
+      </a>
+      
+      <!-- Mobile Toggle Button -->
+      <div class="mobile-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
-      <!-- ENGLISH LINKS -->
-      <div class="navbar__links english hidden">
-        <a href="index.html?lang=en">Home</a>
-        <a href="uber-uns.html?lang=en">About Us</a>
-        <a href="dienstleistungen.html?lang=en">Services</a>
-        <a href="arbeiten.html?lang=en">Work With Us</a>
-        <a href="kontakt.html?lang=en" class="active">Contact</a>
-      </div>
-      <!-- Language Toggle -->
-      <button id="toggleLang" class="lang-btn">English</button>
-    </nav>
+      
+      <!-- Navigation Menu -->
+      <nav class="nav-menu" id="navMenu">
+        <!-- GERMAN LINKS -->
+        <ul class="nav-list german">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="uber-uns.html">Über uns</a></li>
+          <li><a href="dienstleistungen.html">Dienstleistungen</a></li>
+          <li><a href="arbeiten.html">Mit uns arbeiten</a></li>
+          <li><a href="kontakt.html" class="active">Kontakt</a></li>
+        </ul>
+        
+        <!-- ENGLISH LINKS -->
+        <ul class="nav-list english hidden">
+          <li><a href="index.html?lang=en">Home</a></li>
+          <li><a href="uber-uns.html?lang=en">About Us</a></li>
+          <li><a href="dienstleistungen.html?lang=en">Services</a></li>
+          <li><a href="arbeiten.html?lang=en">Work With Us</a></li>
+          <li><a href="kontakt.html?lang=en" class="active">Contact</a></li>
+        </ul>
+        
+        <!-- Language Toggle -->
+        <button id="toggleLang" class="lang-button">English</button>
+      </nav>
+    </div>
   </header>
 
 
@@ -76,7 +85,7 @@
         </div>
         <div class="hero-image-block">
           <img
-            src="assets/img/18.jpg"
+            src="assets/img/28.jpg"
             alt="Kontakt Hero: Office environment"
           />
         </div>
@@ -152,7 +161,7 @@
           <i class="fas fa-envelope"></i>
         </div>
         <h3>E-Mail</h3>
-        <button class="method-btn" onclick="window.location.href='mailto:inf@jobwerke.com'">E-Mail senden</button>
+        <button class="method-btn" onclick="window.location.href='mailto:remix.gradnja@web.de'">E-Mail senden</button>
       </div>
       <!-- WhatsApp Method 1 -->
       <div class="method-box">
@@ -160,7 +169,7 @@
           <i class="fab fa-whatsapp"></i>
         </div>
         <h3>WhatsApp (1)</h3>
-        <button class="method-btn" onclick="window.open('https://wa.me/385995321237?text=Hallo%20Job%20Werke!', '_blank')">+385 (99) 532 1237</button>
+        <button class="method-btn" onclick="window.open('https://wa.me/385995321237?text=Hallo%20Remix%20Gradnja!', '_blank')">+385 (99) 532 1237</button>
       </div>
       <!-- WhatsApp Method 2 -->
       <div class="method-box">
@@ -168,7 +177,7 @@
           <i class="fab fa-whatsapp"></i>
         </div>
         <h3>WhatsApp (2)</h3>
-        <button class="method-btn" onclick="window.open('https://wa.me/385992088076?text=Hallo%20Job%20Werke!', '_blank')">+385 (99) 208 8076</button>
+        <button class="method-btn" onclick="window.open('https://wa.me/385992088076?text=Hallo%20Remix%20Gradnja!', '_blank')">+385 (99) 208 8076</button>
       </div>
       <!-- Direct Inquiry -->
       <div class="method-box">
@@ -277,7 +286,7 @@
               </a>.
             </label>
           </div>
-
+          <button type="submit" class="submit-btn">Nachricht senden</button>
         </form>
       </div>
     </section>
@@ -360,13 +369,13 @@
           <h1>Contact</h1>
           <p>
             Whether you have questions, want to schedule a meeting, 
-            or plan a visit to our offices – we’re here for you.
+            or plan a visit to our offices – we're here for you.
           </p>
           <a href="#contactMethodsEn" class="hero-btn">Learn More</a>
         </div>
         <div class="hero-image-block">
           <img
-            src="assets/img/18.jpg"
+            src="assets/img/28.jpg"
             alt="Contact Hero: International cooperation"
           />
         </div>
@@ -377,7 +386,7 @@
     <section class="why-contact-en" id="contactMethodsEn">
       <h2>Why Get in Touch?</h2>
       <p class="why-desc">
-        Whether it’s for a quote, simple questions, 
+        Whether it's for a quote, simple questions, 
         or a personal introduction – 
         we look forward to hearing from you.
       </p>
@@ -431,7 +440,7 @@
   <div class="contact-methods-inner">
     <h2>Contact Methods</h2>
     <p>
-      Choose the channel that suits you best – whether it’s E-mail, WhatsApp, or a direct inquiry. 
+      Choose the channel that suits you best – whether it's E-mail, WhatsApp, or a direct inquiry. 
       Click the button to get started instantly!
     </p>
     <div class="methods-grid">
@@ -441,7 +450,7 @@
           <i class="fas fa-envelope"></i>
         </div>
         <h3>E-mail</h3>
-        <button class="method-btn" onclick="window.location.href='mailto:info@jobwerke.com'">Send E-mail</button>
+        <button class="method-btn" onclick="window.location.href='mailto:remix.gradnja@web.de'">E-Mail senden</button>
       </div>
       <!-- WhatsApp Method 1 -->
       <div class="method-box">
@@ -449,7 +458,7 @@
           <i class="fab fa-whatsapp"></i>
         </div>
         <h3>WhatsApp (1)</h3>
-        <button class="method-btn" onclick="window.open('https://wa.me/385995321237?text=Hello%20Job%20Werke!', '_blank')">+385 (99) 532 1237</button>
+        <button class="method-btn" onclick="window.open('https://wa.me/385995321237?text=Hello%20Remix%20Gradnja!', '_blank')">+385 (99) 532 1237</button>
       </div>
       <!-- WhatsApp Method 2 -->
       <div class="method-box">
@@ -457,7 +466,7 @@
           <i class="fab fa-whatsapp"></i>
         </div>
         <h3>WhatsApp (2)</h3>
-        <button class="method-btn" onclick="window.open('https://wa.me/385992088076?text=Hello%20Job%20Werke!', '_blank')">+385 (99) 208 8076</button>
+        <button class="method-btn" onclick="window.open('https://wa.me/385992088076?text=Hello%20Remix%20Gradnja!', '_blank')">+385 (99) 208 8076</button>
       </div>
       <!-- Direct Inquiry -->
       <div class="method-box">
@@ -492,11 +501,11 @@
         <label>Your Request</label>
         <div>
           <input type="radio" id="en-anliegen-message" name="wantsAppointment" value="" checked />
-          <label for="justMessage">Just a message</label>
+          <label for="en-anliegen-message">Just a message</label>
         </div>
         <div>
           <input type="radio" id="en-anliegen-appointment" name="wantsAppointment" value="on" />
-          <label for="appoint">Schedule an appointment</label>
+          <label for="en-anliegen-appointment">Schedule an appointment</label>
         </div>
       </div>
       <!-- Appointment fields (initially hidden) -->
@@ -512,7 +521,7 @@
       </div>
       <div class="form-group">
         <label for="en-message">Message <span style="color:red;">*</span></label>
-        <textarea id="message" name="message" rows="5" placeholder="Your message..." required></textarea>
+        <textarea id="en-message" name="message" rows="5" placeholder="Your message..." required></textarea>
       </div>
       <!-- Honeypot (hidden) -->
       <div style="display:none;">
@@ -528,7 +537,7 @@
           </a>.
         </label>
       </div>
-
+      <button type="submit" class="submit-btn">Send Message</button>
     </form>
   </div>
 </section>
@@ -601,15 +610,15 @@
   <!-- ================== FOOTER ================== -->
   <footer class="footer">
     <p>Impressum &bull; Datenschutz &bull; Cookie-Einstellungen</p>
-    <p>&copy; 2024 Job Werke d.o.o. Alle Rechte vorbehalten.</p>
+    <p>&copy; 2024 Remix Gradnja. Alle Rechte vorbehalten.</p>
   </footer>
 
   <!-- OPTIONAL: JavaScript for toggles, date/time fields, etc. -->
   <script src="js/kontakt.js"></script>
   <script>
     // MOBILE NAV
-    const mobileToggle = document.getElementById('mobileToggle');
-    const navbarMenu = document.getElementById('navbarMenu');
+    const mobileToggle = document.getElementById('menuToggle');
+    const navbarMenu = document.getElementById('navMenu');
     mobileToggle.addEventListener('click', () => {
       navbarMenu.classList.toggle('nav-open');
     });

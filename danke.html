@@ -4,62 +4,103 @@
   <meta charset="UTF-8" />
   <title>Danke – Job Werke d.o.o.</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Design System - Core Styles -->
+  <link rel="stylesheet" href="css/design-system.css" />
+  
   <style>
     body {
-      font-family: sans-serif;
-      background: #f3f3f3;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
+      padding: 20px;
     }
+    
     .thank-you-message {
-      background: #fff;
-      padding: 2rem 3rem;
-      border-radius: 6px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      background-color: var(--bg-card);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      padding: 40px;
       text-align: center;
-      max-width: 500px;
+      max-width: 600px;
+      width: 100%;
     }
-    .thank-you-message h1 {
-      margin-bottom: 1rem;
-      font-size: 1.8rem;
-      color: #181844;
+    
+    .logo {
+      margin-bottom: 2rem;
+      max-width: 150px;
     }
-    .thank-you-message p {
-      margin-bottom: 1rem;
-      color: #555;
-      line-height: 1.5;
+    
+    .message-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin: 0 auto 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .thank-you-message a {
-      display: inline-block;
-      padding: 0.6rem 1.2rem;
-      background: #181844;
-      color: #fff;
-      border-radius: 4px;
-      text-decoration: none;
-      transition: background 0.3s;
-      margin-top: 1rem;
+    
+    .message-icon.success {
+      background-color: #e0f7ea;
+      color: var(--success);
     }
-    .thank-you-message a:hover {
-      background: #12163b;
+    
+    .message-icon.error {
+      background-color: #ffebee;
+      color: var(--error);
     }
-    .msg-error {
-      color: red;
-      margin-bottom: 1rem;
+    
+    .message-icon.info {
+      background-color: #e3f2fd;
+      color: var(--info);
     }
-    .msg-success {
-      color: green;
+    
+    .checkmark {
+      width: 40px;
+      height: 40px;
+    }
+    
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 2rem;
+    }
+    
+    #backLink {
+      padding: 12px 24px;
+    }
+    
+    #checkStatusLink {
+      padding: 12px 24px;
     }
   </style>
 </head>
 <body>
   <div class="thank-you-message">
+    <img src="assets/videos/logo33.png" alt="Job Werke Logo" class="logo">
+    
+    <div class="message-icon success" id="statusIcon">
+      <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+        <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" stroke="#28a745" stroke-width="2"/>
+        <path class="checkmark__check" fill="none" stroke="#28a745" stroke-width="3" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+      </svg>
+    </div>
+    
     <h1 id="tyHeadline">Vielen Dank!</h1>
     <p id="tyMessage"></p>
-    <!-- We'll change the text and href of this link dynamically based on lang -->
-    <a id="backLink" href="/">Zurück zur Startseite</a>
+    
+    <div class="buttons">
+      <!-- We'll change the text and href of this link dynamically based on lang -->
+      <a id="backLink" href="index.html" class="btn-primary">Zurück zur Startseite</a>
+      <a id="checkStatusLink" href="status.html" style="display: none;" class="btn-secondary">Status prüfen</a>
+    </div>
   </div>
 
   <script>
@@ -72,30 +113,54 @@
       const isAlreadySub = params.get("subscribed");
       // Language (default to "de" if missing)
       const userLang     = params.get("lang") || "de";
-
+      
       const tyHeadline = document.getElementById("tyHeadline");
       const tyMessage  = document.getElementById("tyMessage");
       const backLink   = document.getElementById("backLink");
+      const statusLink = document.getElementById("checkStatusLink");
+      const statusIcon = document.getElementById("statusIcon");
 
       // =========================
       // 1) Adjust backLink
       // =========================
       if (userLang === "en") {
-        backLink.href = "/?lang=en";   // preserve English
+        backLink.href = "index.html?lang=en";   // preserve English
         backLink.textContent = "Back to Homepage";
+        statusLink.textContent = "Check Status";
+        statusLink.href = "status.html?lang=en";
       } else {
-        backLink.href = "/?lang=de";   // preserve German
+        backLink.href = "index.html?lang=de";   // preserve German
         backLink.textContent = "Zurück zur Startseite";
+        statusLink.textContent = "Status prüfen";
+        statusLink.href = "status.html";
       }
 
       // =========================
       // Helper function
       // =========================
-      function setHeadlineAndMessage(title, msg, isErrorMode = false) {
+      function setHeadlineAndMessage(title, msg, type = 'success') {
         tyHeadline.textContent = title;
         tyMessage.textContent  = msg;
-        if (isErrorMode) {
-          tyHeadline.classList.add("msg-error");
+        
+        // Update icon based on message type
+        statusIcon.className = `message-icon ${type}`;
+        
+        if (type === 'error') {
+          statusIcon.innerHTML = `
+            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+              <circle cx="26" cy="26" r="25" fill="none" stroke="#f44336" stroke-width="2"/>
+              <path fill="none" stroke="#f44336" stroke-width="3" d="M16 16 36 36 M36 16 16 36"/>
+            </svg>
+          `;
+        } else if (type === 'info') {
+          statusIcon.innerHTML = `
+            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+              <circle cx="26" cy="26" r="25" fill="none" stroke="#2196f3" stroke-width="2"/>
+              <text x="26" y="34" text-anchor="middle" fill="#2196f3" font-size="30" font-weight="bold">i</text>
+            </svg>
+          `;
+        } else {
+          // Default success icon (already in the HTML)
         }
       }
 
@@ -107,12 +172,14 @@
         if (userLang === "en") {
           setHeadlineAndMessage(
             "Email Already Registered",
-            "This address is already on our newsletter list."
+            "This address is already on our newsletter list.",
+            'info'
           );
         } else {
           setHeadlineAndMessage(
             "E-Mail bereits registriert!",
-            "Diese E-Mail-Adresse ist bereits in unserem Newsletter-Verteiler."
+            "Diese E-Mail-Adresse ist bereits in unserem Newsletter-Verteiler.",
+            'info'
           );
         }
         return;
@@ -139,13 +206,15 @@
         if (userLang === "en") {
           setHeadlineAndMessage(
             "Appointment Request Sent!",
-            "Thank you for requesting an appointment. We'll contact you soon."
+            "Thank you for requesting an appointment. We'll contact you soon. You can find your reference number in the confirmation email we just sent."
           );
+          statusLink.style.display = "inline-block";
         } else {
           setHeadlineAndMessage(
             "Termin-Anfrage erfolgreich gesendet!",
-            "Vielen Dank für Ihre Termin-Anfrage. Wir melden uns so schnell wie möglich."
+            "Vielen Dank für Ihre Termin-Anfrage. Wir melden uns so schnell wie möglich. Ihre Referenznummer finden Sie in der gerade gesendeten Bestätigungs-E-Mail."
           );
+          statusLink.style.display = "inline-block";
         }
         return;
       }
@@ -155,13 +224,15 @@
         if (userLang === "en") {
           setHeadlineAndMessage(
             "Message Sent!",
-            "We've received your message and will get back to you ASAP."
+            "We've received your message and will get back to you ASAP. You can find your reference number in the confirmation email we just sent."
           );
+          statusLink.style.display = "inline-block";
         } else {
           setHeadlineAndMessage(
             "Nachricht erfolgreich gesendet!",
-            "Wir haben Ihre Nachricht erhalten und werden uns schnellstmöglich melden."
+            "Wir haben Ihre Nachricht erhalten und werden uns schnellstmöglich melden. Ihre Referenznummer finden Sie in der gerade gesendeten Bestätigungs-E-Mail."
           );
+          statusLink.style.display = "inline-block";
         }
         return;
       }
@@ -172,13 +243,13 @@
           setHeadlineAndMessage(
             "Error",
             "An error occurred. Please try again later.",
-            true
+            'error'
           );
         } else {
           setHeadlineAndMessage(
             "Fehler beim Senden",
             "Es gab ein Problem. Bitte versuchen Sie es später erneut.",
-            true
+            'error'
           );
         }
         return;
@@ -186,9 +257,9 @@
 
       // f) Fallback (no params)
       if (userLang === "en") {
-        setHeadlineAndMessage("Welcome!", "No action recognized.");
+        setHeadlineAndMessage("Welcome!", "No action recognized.", 'info');
       } else {
-        setHeadlineAndMessage("Willkommen!", "Keine Aktion erkannt.");
+        setHeadlineAndMessage("Willkommen!", "Keine Aktion erkannt.", 'info');
       }
     });
   </script>

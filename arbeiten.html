@@ -2,10 +2,10 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>Mit uns arbeiten – Job Werke d.o.o. | Dienstleistungsvertrag statt Leasing</title>
+  <title>Mit uns arbeiten – Remix Gradnja | Qualität in jedem Bauprojekt</title>
   <meta
     name="description"
-    content="Erfahren Sie, wie die Zusammenarbeit mit Job Werke d.o.o. funktioniert – von der Planung über Team-Zusammenstellung bis zur nahtlosen Integration und Reporting."
+    content="Erfahren Sie, wie die Zusammenarbeit mit Remix Gradnja funktioniert – von der Planung über Team-Zusammenstellung bis zur nahtlosen Integration und Reporting."
   />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -15,43 +15,46 @@
     rel="stylesheet"
   />
   
+  <!-- Design System - Core Styles -->
+  <link rel="stylesheet" href="css/design-system.css" />
+  
   <!-- Main CSS (to be provided later) -->
   <link rel="stylesheet" href="css/arbeiten.css" />
 </head>
 <body>
-  <!-- ================= NAVBAR ================= -->
-  <header class="navbar">
-    <div class="navbar__logo">
-      <img src="assets/videos/logo33.png" style="max-height: 50px; width: auto;" />
-    </div>
-    <!-- Hamburger icon (mobile) -->
-    <div class="navbar__toggle" id="mobileToggle">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-
-    <!-- NAV Menu -->
-    <nav class="navbar__menu" id="navbarMenu">
-      <!-- GERMAN Links -->
-      <div class="navbar__links german">
-        <a href="index.html">Home</a>
-        <a href="uber-uns.html">Über uns</a>
-        <a href="dienstleistungen.html">Dienstleistungen</a>
-        <a href="arbeiten.html" class="active">Mit uns arbeiten</a>
-        <a href="kontakt.html">Kontakt</a>
+  <!-- NEW NAVIGATION -->
+  <header class="header">
+    <div class="header-container">
+      <div class="logo">
+        <img src="assets/videos/logo33.png" alt="Remix Logo" />
       </div>
-      <!-- ENGLISH Links -->
-      <div class="navbar__links english hidden">
-        <a href="index.html?lang=en">Home</a>
-        <a href="uber-uns.html?lang=en">About Us</a>
-        <a href="dienstleistungen.html?lang=en">Services</a>
-        <a href="arbeiten.html?lang=en" class="active">Work With Us</a>
-        <a href="kontakt.html?lang=en">Contact</a>
-      </div>
-      <!-- Language Toggle -->
-      <button id="toggleLang" class="lang-btn">English</button>
-    </nav>
+      
+      <button class="mobile-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
+      <nav class="nav-menu" id="navMenu">
+        <ul class="nav-list german">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="uber-uns.html">Über uns</a></li>
+          <li><a href="dienstleistungen.html">Dienstleistungen</a></li>
+          <li><a href="arbeiten.html" class="active">Mit uns arbeiten</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+        
+        <ul class="nav-list english hidden">
+          <li><a href="index.html?lang=en">Home</a></li>
+          <li><a href="uber-uns.html?lang=en">About Us</a></li>
+          <li><a href="dienstleistungen.html?lang=en">Services</a></li>
+          <li><a href="arbeiten.html?lang=en" class="active">Work With Us</a></li>
+          <li><a href="kontakt.html?lang=en">Contact</a></li>
+        </ul>
+        
+        <button id="toggleLang" class="lang-button">English</button>
+      </nav>
+    </div>
   </header>
 
 
@@ -68,15 +71,14 @@
         <div class="hero-text-block">
           <h1>Mit uns arbeiten</h1>
           <p>
-            Erleben Sie, wie unsere Dienstleistungsverträge
-            <strong>effizientere</strong> und
-            <strong>transparentere</strong> Projekte ermöglichen –
-            ganz ohne Arbeitnehmerüberlassung.
+            Entdecken Sie, wie unsere Dienstleistungen 
+            <strong>effizient</strong> und <strong>transparent</strong>
+            Ihre Projekte unterstützen – ohne die Nachteile von Zeitarbeit.
           </p>
-          <a href="#workflowDe" class="hero-btn">Jetzt mehr erfahren</a>
+          <a href="#workflowDe" class="hero-btn">Mehr erfahren</a>
         </div>
         <div class="hero-image-block">
-          <img src="assets/img/28.jpg" alt="Teamwork at Job Werke" />
+          <img src="assets/new/subcontracter.png" alt="Teamwork at Remix Gradnja" />
         </div>
       </div>
     </section>
@@ -114,7 +116,7 @@
             <h3>2. Zusammensetzung des Teams</h3>
             <p>
               Wir stellen die passenden Fachkräfte aus unserem Pool zusammen.
-              Sie bleiben bei Job Werke angestellt, während Sie
+              Sie bleiben bei Remix Gradnja angestellt, während Sie
               von voller Flexibilität profitieren.
             </p>
           </div>
@@ -156,7 +158,7 @@
         <!-- Left image, Right text -->
         <div class="zigzag-item">
           <div class="zigzag-image">
-            <img src="assets/img/15.jpg" alt="Projektplanung" />
+            <img src="assets/new/paintering tool.png" alt="Projektplanung" />
           </div>
           <div class="zigzag-text">
             <h2>Schritt 1: Präzise Planung</h2>
@@ -190,14 +192,14 @@
             </ul>
           </div>
           <div class="zigzag-image">
-            <img src="assets/img/13.jpg" alt="Teamaufbau" />
+            <img src="assets/new/fours peopel wiht constuction dres.png" alt="Teamaufbau" />
           </div>
         </div>
 
         <!-- Left image, Right text -->
         <div class="zigzag-item">
           <div class="zigzag-image">
-            <img src="assets/img1/workshops.jpg" alt="Integration und Training" />
+            <img src="assets/new/trust agent .png" alt="Integration und Training" />
           </div>
           <div class="zigzag-text">
             <h2>Schritt 3: Integration &amp; Training</h2>
@@ -251,36 +253,45 @@
       <h2>Praxisbeispiele</h2>
       <div class="mini-case-grid">
         <div class="case-card">
+          <div class="image-container">
+            <img src="assets/new/worker colab communiocation.png" alt="Remote Office Service">
+          </div>
           <div class="step-icon">
-         <img src="assets/icons/conversation.png" alt="Remote Office Icon">
-       </div>
-       <h3>Remote-Büroservice</h3>
-       <p>
-         Für ein mittelständisches Unternehmen stellten wir
-         ein Backoffice-Team, das täglich Kundenanfragen beantwortet
-         und Dokumentenverwaltung übernimmt.
-       </p>
+            <img src="assets/icons/conversation.png" alt="Remote Office Icon">
+          </div>
+          <h3>Remote-Büroservice</h3>
+          <p>
+            Für ein mittelständisches Unternehmen stellten wir
+            ein Backoffice-Team, das täglich Kundenanfragen beantwortet
+            und Dokumentenverwaltung übernimmt.
+          </p>
         </div>
         <div class="case-card">
-       <div class="step-icon">
-         <img src="assets/icons/icons8-construction-50.png" alt="Construction Icon">
-       </div>
-       <h3>Bauhelfer auf Abruf</h3>
-       <p>
-         Dank unseres Remix-Netzwerks konnten wir Bauhelfer
-         flexibel bei einem Baustellenprojekt integrieren –
-         ohne Zeitarbeit.
-       </p>
+          <div class="image-container">
+            <img src="assets/new/conosntuction clothtses.png" alt="Construction Help">
+          </div>
+          <div class="step-icon">
+            <img src="assets/icons/icons8-construction-50.png" alt="Construction Icon">
+          </div>
+          <h3>Bauhelfer auf Abruf</h3>
+          <p>
+            Dank unseres Remix-Netzwerks konnten wir Bauhelfer
+            flexibel bei einem Baustellenprojekt integrieren –
+            ohne Zeitarbeit.
+          </p>
         </div>
         <div class="case-card">
+          <div class="image-container">
+            <img src="assets/new/it worj.png" alt="IT Support">
+          </div>
           <div class="step-icon">
-         <img src="assets/icons/icons8-computer-support-48.png" alt="IT Support Icon">
-       </div>
-       <h3>IT-Support &amp; Quality Checks</h3>
-       <p>
-         Ein kleines IT-Team unterstützt remote den 1st-Level-Support
-         und wird bei Bedarf erweitert, je nach Auftragslage.
-       </p>
+            <img src="assets/icons/icons8-computer-support-48.png" alt="IT Support Icon">
+          </div>
+          <h3>IT-Support &amp; Quality Checks</h3>
+          <p>
+            Ein kleines IT-Team unterstützt remote den 1st-Level-Support
+            und wird bei Bedarf erweitert, je nach Auftragslage.
+          </p>
         </div>
       </div>
     </section>
@@ -352,7 +363,7 @@
           <a href="#workflowEn" class="hero-btn">Learn More</a>
         </div>
         <div class="hero-image-block">
-          <img src="assets/img/28.jpg" alt="Teamwork at Job Werke" />
+          <img src="assets/new/subcontracter.png" alt="Teamwork at Remix Gradnja" />
         </div>
       </div>
     </section>
@@ -416,7 +427,7 @@
             <p>
               We provide regular status reports,
               adjusting team size or scope as needed –
-              ensuring you’re always in control.
+              ensuring you're always in control.
             </p>
           </div>
         </div>
@@ -431,7 +442,7 @@
         <!-- Left image, Right text -->
         <div class="zigzag-item">
           <div class="zigzag-image">
-            <img src="assets/img/15.jpg" alt="Project planning" />
+            <img src="assets/new/paintering tool.png" alt="Project planning" />
           </div>
           <div class="zigzag-text">
             <h2>Step 1: Precise Planning</h2>
@@ -463,14 +474,14 @@
             </ul>
           </div>
           <div class="zigzag-image">
-            <img src="assets/img/13.jpg" alt="Team building" />
+            <img src="assets/new/fours peopel wiht constuction dres.png" alt="Team building" />
           </div>
         </div>
 
         <!-- Left image, Right text -->
         <div class="zigzag-item">
           <div class="zigzag-image">
-            <img src="assets/img1/workshops.jpg" alt="Integration und Training" />
+            <img src="assets/new/trust agent .png" alt="Integration and Training" />
           </div>
           <div class="zigzag-text">
             <h2>Step 3: Integration &amp; Training</h2>
@@ -522,37 +533,48 @@
          MINI CASE STUDIES (EN)
     ========================== -->
     <section class="mini-cases-en">
-      <h2>Practical Examples</h2>
+      <h2>Case Studies</h2>
       <div class="mini-case-grid">
         <div class="case-card">
-          <div class="step-icon">
-            <img src="assets/icons/icons8-data-60.png" alt="IT Support Icon">
+          <div class="image-container">
+            <img src="assets/new/worker colab communiocation.png" alt="Remote Office Service">
           </div>
-          <h3>Remote Back Office</h3>
+          <div class="step-icon">
+            <img src="assets/icons/conversation.png" alt="Remote Office Icon">
+          </div>
+          <h3>Remote Office Support</h3>
           <p>
-            We supplied a remote admin team for a mid-sized company,
-            handling daily inquiries and document management.
+            We provided a backoffice team for a mid-sized business, 
+            handling daily customer inquiries and
+            document management.
           </p>
         </div>
         <div class="case-card">
-          <div class="step-icon">
-            <img src="assets/icons/icons8-construction-50.png" alt="IT Support Icon">
+          <div class="image-container">
+            <img src="assets/new/conosntuction clothtses.png" alt="Construction Help">
           </div>
-          <h3>On-Call Construction Helpers</h3>
+          <div class="step-icon">
+            <img src="assets/icons/icons8-construction-50.png" alt="Construction Icon">
+          </div>
+          <h3>On-Call Construction Help</h3>
           <p>
-            Through our Remix network, we integrated flexible
-            construction workers at a job site –
-            <strong>without</strong> leasing models.
+            Our Remix network allowed us to flexibly deploy
+            construction helpers to a project site—
+            without temp staffing contracts.
           </p>
         </div>
         <div class="case-card">
+          <div class="image-container">
+            <img src="assets/new/it worj.png" alt="IT Support">
+          </div>
           <div class="step-icon">
             <img src="assets/icons/icons8-computer-support-48.png" alt="IT Support Icon">
           </div>
-          <h3>IT Support & QA</h3>
+          <h3>IT Support &amp; QA</h3>
           <p>
-            A small IT team provides remote first-level support,
-            easily scaled up or down as workloads change.
+            A small IT team provides remote 1st-level support,
+            scaling up based on demand and
+            service level requirements.
           </p>
         </div>
       </div>
@@ -592,7 +614,7 @@
       <div class="final-cta-inner">
         <h2>Ready for the Next Step?</h2>
         <p>
-          Let’s explore how our services can
+          Let's explore how our services can
           <strong>efficiently</strong> strengthen your operations.
         </p>
         <a href="kontakt.html?lang=en#name-en" class="cta-btn">Send Inquiry</a>
@@ -609,15 +631,15 @@
       <a href="datenschutz.html">Datenschutz</a> &bull;
       <a href="cookie.html">Cookie-Einstellungen</a>
     </p>
-    <p>&copy; 2024 Job Werke d.o.o. Alle Rechte vorbehalten.</p>
+    <p>&copy; 2024 Remix Gradnja. Alle Rechte vorbehalten.</p>
   </footer>
 
   <!-- OPTIONAL JS for toggles, FAQ, etc. -->
   <script src="js/arbeiten.js"></script>
   <script>
     // MOBILE NAV
-    const mobileToggle = document.getElementById('mobileToggle');
-    const navbarMenu = document.getElementById('navbarMenu');
+    const mobileToggle = document.getElementById('menuToggle');
+    const navbarMenu = document.getElementById('navMenu');
     mobileToggle.addEventListener('click', () => {
       navbarMenu.classList.toggle('nav-open');
     });

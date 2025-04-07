@@ -45,75 +45,79 @@ body::before {
 }
 
 /***************************************************************
-  2) NAVBAR
+  2) NAVIGATION
 ***************************************************************/
-.navbar {
+.header {
   position: fixed;
-  /* Positioning */
-  top: 1rem;            /* space from the top */
-  left: 50%;            /* center horizontally */
+  top: 1rem;
+  left: 50%;
   transform: translateX(-50%);
-  
-  /* Size & layout */
-  width: 80%;           /* or however wide you want it */
+  width: 80%;
+  background: linear-gradient(360deg, #7f6060, #f90000);
+  border-radius: 9999px;
+  z-index: 9999;
+  box-shadow: 0 0 10px rgba(175, 27, 27, 0.7),
+              0 0 25px rgba(182, 62, 62, 0.4);
+}
+
+.header-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
-  /* Look & feel */
-  background: linear-gradient(360deg, #7f6060, #f90000);  /* gradient color */
-  padding: 0.75rem 1.5rem;
-  border-radius: 9999px;     /* large radius for that “pill” shape */
-  
-  /* Glow / Shadow */
-  box-shadow: 0 0 10px rgba(175, 27, 27, 0.7),
-              0 0 25px rgba(182, 62, 62, 0.4);
-  
-  /* Layer above page content */
-  z-index: 9999;
-}
-.navbar__logo {
-  flex-shrink: 0;
-}
-.navbar-logo-video {
-  max-height: 50px;
-  object-fit: contain;
-  pointer-events: none;
-  transition: transform 0.3s ease;
-}
-.navbar__logo:hover .navbar-logo-video {
-  transform: scale(1.05);
+  padding: 10px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* Hamburger for mobile */
-.navbar__toggle {
+.logo img {
+  height: 50px;
+  width: auto;
+}
+
+.mobile-toggle {
   display: none;
   flex-direction: column;
-  gap: 4px;
-  margin-left: auto;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  background: transparent;
+  border: none;
   cursor: pointer;
+  padding: 0;
+  z-index: 10000;
 }
-.navbar__toggle span {
-  width: 24px;
+
+.mobile-toggle span {
+  width: 100%;
   height: 3px;
-  background: #fff;
-  border-radius: 2px;
+  background-color: white;
+  border-radius: 3px;
   transition: all 0.3s ease;
 }
 
-/* Desktop menu */
-.navbar__menu {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  margin-left: auto;
+/* Hamburger animation */
+.mobile-toggle span.active:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
 }
 
-/* Nav links */
-.navbar__links {
+.mobile-toggle span.active:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-toggle span.active:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+.nav-menu {
   display: flex;
   align-items: center;
-  gap: 1.2rem;
+}
+
+.nav-list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
   font-weight: bold;
   color: #fff;
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
@@ -122,72 +126,116 @@ body::before {
   backdrop-filter: blur(5px);
   border-radius: 8px;
 }
-.navbar__links a {
-  font-weight: 1000;
-  color: #f5f5f5;
-  position: relative;
-  padding: 0.2rem 0;
-}
-.navbar__links a.active::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -3px;
-  width: 100%;
-  height: 2px;
-  background: #888; /* subtle silver for active link */
-}
-.navbar__links a:hover {
-  color: #fff; 
+
+.nav-list li {
+  margin: 0 15px;
 }
 
-/* Language btn */
-.lang-btn {
+.nav-list li a {
+  color: #f5f5f5;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 16px;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-list li a:hover {
+  color: #fff;
+}
+
+.nav-list li a.active {
+  color: #fff;
+}
+
+.nav-list li a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #fff;
+}
+
+.lang-button {
   background: #a52121;
   color: #eee;
   padding: 0.4rem 1rem;
   border-radius: 100px;
   font-weight: 500;
-  border: 2px solid rgba(255, 255, 255, 0.5); /* solid blur border */
+  border: 2px solid rgba(255, 255, 255, 0.5);
   cursor: pointer;
   transition: background 0.3s ease, border-color 0.3s ease;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* shiny effect */
-}
-.lang-btn:hover {
-  background: #666;
-  border-color: rgba(255, 255, 255, 0.8); /* more shiny on hover */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  margin-left: 20px;
 }
 
-/* Mobile nav */
+.lang-button:hover {
+  background: #666;
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Mobile Navigation */
 @media (max-width: 768px) {
-  .navbar {
-    height: 60px;
+  .header {
+    width: 95%;
+    top: 0.5rem;
   }
-  .navbar__toggle {
+  
+  .mobile-toggle {
     display: flex;
-    margin-left: auto;
   }
-  .navbar__menu {
-    position: absolute;
-    top: 60px;
+  
+  .nav-menu {
+    position: fixed;
+    top: 70px;
     left: 0;
-    flex-direction: column;
     width: 100%;
-    gap: 1rem;
-    background: #1a1a1a;
-    padding: 1rem 2rem;
-    transform: translateY(-120%);
-    transition: transform 0.3s ease;
-    z-index: 99;
-  }
-  .navbar__menu.nav-open {
-    transform: translateY(0);
-  }
-  .navbar__links {
+    background: linear-gradient(180deg, #7f6060, #f90000);
     flex-direction: column;
-    gap: 0.75rem;
+    align-items: center;
+    padding: 20px 0;
+    transition: transform 0.3s ease-in-out;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 9998;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .nav-menu.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .nav-list {
+    flex-direction: column;
+    width: 90%;
+    text-align: center;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+  }
+  
+  .nav-list li {
+    margin: 15px 0;
+  }
+  
+  .nav-list li a {
+    font-size: 18px;
+    display: block;
+    padding: 5px 0;
+  }
+  
+  .lang-button {
+    margin: 20px 0 0 0;
+    width: 150px;
   }
 }
+
 /***************************************************************
   3) ANGLED HERO (DE / EN)
 ***************************************************************/
@@ -255,27 +303,52 @@ body::before {
   flex: 1 1 400px;
   overflow: hidden;
   text-align: center;
+  height: 400px;
+  min-height: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(255,255,255,0.1);
 }
 .hero-image-block img {
+  width: 100%;
+  height: 100%;
+  min-height: 350px;
   max-height: 400px;
   border-radius: 8px;
   box-shadow: 0 4px 16px rgba(255,255,255,0.05);
   object-fit: cover;
-  transition: transform 0.4s ease;
+  object-position: center 25%;
+  padding: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
 }
 .hero-image-block:hover img {
   transform: scale(1.04);
 }
-.her-bt
 @media (max-width: 768px) {
   .hero-de-inner, .hero-en-inner {
     flex-direction: column;
     clip-path: none;
     background: #222;
     text-align: center;
+    padding: 2rem 1rem;
+  }
+  .hero-text-block {
+    order: 1;
+  }
+  .hero-image-block {
+    order: 2;
+    min-height: 250px;
+    height: 250px;
+    margin: 0 auto;
+    width: 90%;
   }
   .hero-image-block img {
-    max-height: 200px;
+    min-height: 250px;
+    height: 250px;
+    max-height: 250px;
+    width: 100%;
     margin-top: 1rem;
   }
 }
@@ -308,18 +381,28 @@ body::before {
 }
 .why-card {
   background: #1a1a1a;
-  border-radius: 6px;
+  border-radius: 10px;
   box-shadow: 0 3px 12px rgba(255,255,255,0.05);
   padding: 1.5rem;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 .why-card:hover {
   transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(255,0,0,0.1);
 }
-.why-card i {
-  font-size: 2rem;
-  color: #888;
+.why-card .step-icon {
   margin-bottom: 1rem;
+}
+.why-card .step-icon img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
 }
 .why-card h3 {
   font-size: 1.1rem;
@@ -360,18 +443,25 @@ body::before {
 }
 .method-box {
   background: #0b0909;
-  border-radius: 6px;
+  border-radius: 12px;
   box-shadow: 0 3px 12px rgba(255,255,255,0.05);
   padding: 1.5rem;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: center;
+  height: 100%;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 .method-box:hover {
   transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(255,0,0,0.1);
 }
 .method-box i {
   font-size: 2rem;
-  color: #888;
+  color: #bd1c1c;
   margin-bottom: 1rem;
 }
 .method-btn {
@@ -432,13 +522,13 @@ body::before {
 .form-de-inner,
 .form-en-inner {
   /* Dark background with subtle red gradient */
-  background: linear-gradient(135deg, #3e1717, #972626 60%, #8f0202 100%);
-  border-radius: 60px;
+  background: linear-gradient(135deg, #2a0909, #5a1010 60%, #4f0202 100%);
+  border-radius: 20px;
   position: relative; /* for the pseudo-element glow */
-  padding: 2rem;
+  padding: 2.5rem;
   box-shadow:
     0 4px 14px rgba(255, 255, 255, 0.05), /* existing subtle shadow */
-    0 0 8px rgba(255, 0, 0, 0.4);        /* extra red glow outside */
+    0 0 20px rgba(255, 0, 0, 0.4);        /* enhanced red glow outside */
 }
 
 /* Create a blurred red glow behind the container */
@@ -450,14 +540,14 @@ body::before {
   left: -3px;
   right: -3px;
   bottom: -3px;
-  border-radius: 12px;
+  border-radius: 20px;
   background: linear-gradient(
     45deg,
     rgba(255, 0, 0, 0.7),
     rgba(180, 0, 0, 0.2),
     rgba(255, 0, 0, 0.7)
   );
-  filter: blur(8px);
+  filter: blur(12px);
   z-index: -1; /* keep the glow behind the form */
 }
 
@@ -487,13 +577,13 @@ form input[type="date"],
 form input[type="time"],
 form textarea {
   width: 100%;
-  padding: 0.5rem;
+  padding: 0.7rem;
   background: #ffffff;
   border: 1px solid #444;
-  border-radius: 4px;
+  border-radius: 6px;
   color: #060000;
-  font-size: 0.9rem;
-  transition: border 0.3s ease;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
 }
 
 form input[type="text"]:focus,
@@ -501,7 +591,9 @@ form input[type="email"]:focus,
 form input[type="date"]:focus,
 form input[type="time"]:focus,
 form textarea:focus {
-  border: 1px solid #666;
+  border: 1px solid #a31212;
+  box-shadow: 0 0 8px rgba(255, 0, 0, 0.3);
+  outline: none;
 }
 
 form textarea {
@@ -543,6 +635,34 @@ form input[type="checkbox"] {
   background: linear-gradient(135deg, #550000, #880000);
   transform: translateY(-2px);
 }
+
+.submit-btn {
+  background-color: #181844;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+  width: 100%;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.submit-btn:hover {
+  background-color: #24236c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Make sure the appointment fields toggle functionality works */
+#appointment-fields,
+#appointment-fields-en {
+  display: none;
+}
+
 /***************************************************************
   7) LOCATIONS (DE / EN)
 ***************************************************************/
@@ -555,11 +675,11 @@ form input[type="checkbox"] {
   color: #ccc;
 
   /* Add a subtle background gradient, plus relative positioning
-     if you’d like to add a “glow behind the entire section” pseudo‑element. */
+     if you'd like to add a "glow behind the entire section" pseudo‑element. */
   background: linear-gradient(135deg, #1a1a1a, #2a2a2a 60%, #1a1a1a 100%);
   border-radius: 10px;
   position: relative; /* for optional glow with ::before */
-  overflow: hidden;   /* so glow doesn’t extend beyond corners */
+  overflow: hidden;   /* so glow doesn't extend beyond corners */
 }
 
 .locations-de::before,
@@ -673,12 +793,28 @@ form input[type="checkbox"] {
 
 /* Map container styling */
 .map-frame {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   overflow: hidden;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  position: relative;
+  transition: all 0.3s ease;
 }
 
+.map-frame:hover {
+  box-shadow: 0 6px 20px rgba(255, 0, 0, 0.2);
+}
+
+.map-frame iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
 
 /***************************************************************
   8) FOOTER
@@ -733,17 +869,39 @@ form input[type="checkbox"] {
   background: #bbb;
 }
 
-.footer a:hover {
-  color: #fff;
-}
-
 /***************************************************************
   9) MOBILE TWEAKS
 ***************************************************************/
 @media (max-width: 768px) {
-  /* Keep your existing mobile styles if desired */
   .locations-grid {
     grid-template-columns: 1fr;
   }
-  /* ...other mobile tweaks unchanged... */
+  
+  .form-de-inner,
+  .form-en-inner {
+    padding: 1.5rem;
+  }
+  
+  form input[type="text"],
+  form input[type="email"],
+  form input[type="date"],
+  form input[type="time"],
+  form textarea {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+  
+  .map-frame {
+    margin-top: 1rem;
+  }
+  
+  .why-cards-container, .methods-grid {
+    grid-template-columns: 1fr;
+    max-width: 90%;
+    margin: 0 auto;
+  }
+  
+  .why-card, .method-box {
+    min-height: 180px;
+  }
 }

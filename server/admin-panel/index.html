@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Werke Admin Panel</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: #f7f7f7;
+      color: #333;
+      line-height: 1.6;
+    }
+    header {
+      background: #181844;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    nav {
+      display: flex;
+      gap: 1rem;
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 1rem;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+    .tab-btn.active {
+      opacity: 1;
+      font-weight: bold;
+      border-bottom: 2px solid white;
+    }
+    .tab-content {
+      display: none;
+      margin-top: 1rem;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      background: white;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+    th {
+      background: #f9f9f9;
+    }
+    .controls {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .btn-confirm {
+      background: #4CAF50;
+      color: white;
+    }
+    .btn-cancel {
+      background: #f44336;
+      color: white;
+    }
+    .btn-delete {
+      background: #666;
+      color: white;
+    }
+    .search-filter {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    input[type="search"] {
+      flex-grow: 1;
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    select {
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .loader {
+      text-align: center;
+      padding: 2rem;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+    .status-pending {
+      background: #FFC107;
+      color: #333;
+    }
+    .status-confirmed {
+      background: #4CAF50;
+      color: white;
+    }
+    .status-canceled {
+      background: #f44336;
+      color: white;
+    }
+    .message-preview {
+      max-width: 300px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      align-items: center;
+      justify-content: center;
+    }
+    .modal.active {
+      display: flex;
+    }
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      max-width: 600px;
+      width: 90%;
+    }
+    .modal-title {
+      margin-bottom: 1rem;
+    }
+    .modal-body {
+      margin-bottom: 1.5rem;
+    }
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+    }
+    .message-full {
+      background: #f9f9f9;
+      padding: 1rem;
+      border-radius: 4px;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Job Werke Admin</h1>
+    <nav>
+      <button class="tab-btn active" data-tab="appointments">Anfragen & Termine</button>
+      <button class="tab-btn" data-tab="subscribers">Newsletter</button>
+    </nav>
+  </header>
+
+  <div class="container">
+    <!-- Appointments Tab -->
+    <div id="appointments" class="tab-content active">
+      <h2>Kontaktanfragen & Termine</h2>
+      <div class="search-filter">
+        <input type="search" id="appointment-search" placeholder="Suchen...">
+        <select id="appointment-filter">
+          <option value="all">Alle Status</option>
+          <option value="pending">Ausstehend</option>
+          <option value="confirmed">Bestätigt</option>
+          <option value="canceled">Abgesagt</option>
+        </select>
+      </div>
+      <div class="loader" id="appointments-loader">Daten werden geladen...</div>
+      <table id="appointments-table" style="display:none;">
+        <thead>
+          <tr>
+            <th>Datum</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Ref. ID</th>
+            <th>Nachricht</th>
+            <th>Termin</th>
+            <th>Status</th>
+            <th>Aktionen</th>
+          </tr>
+        </thead>
+        <tbody id="appointments-body"></tbody>
+      </table>
+    </div>
+
+    <!-- Subscribers Tab -->
+    <div id="subscribers" class="tab-content">
+      <h2>Newsletter-Abonnenten</h2>
+      <div class="search-filter">
+        <input type="search" id="subscriber-search" placeholder="Suchen...">
+      </div>
+      <div class="loader" id="subscribers-loader">Daten werden geladen...</div>
+      <table id="subscribers-table" style="display:none;">
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Datum</th>
+            <th>Aktionen</th>
+          </tr>
+        </thead>
+        <tbody id="subscribers-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Message View Modal -->
+  <div id="message-modal" class="modal">
+    <div class="modal-content">
+      <h3 class="modal-title">Nachricht anzeigen</h3>
+      <div class="modal-body">
+        <p><strong>Von:</strong> <span id="modal-name"></span></p>
+        <p><strong>Email:</strong> <span id="modal-email"></span></p>
+        <p><strong>Referenz-ID:</strong> <span id="modal-refid"></span></p>
+        <p><strong>Termin:</strong> <span id="modal-appointment"></span></p>
+        <p><strong>Nachricht:</strong></p>
+        <div id="modal-message" class="message-full"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn" onclick="closeModal()">Schließen</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirm/Cancel Modal -->
+  <div id="status-modal" class="modal">
+    <div class="modal-content">
+      <h3 class="modal-title" id="status-modal-title">Termin bestätigen</h3>
+      <div class="modal-body">
+        <p id="status-modal-message">Möchten Sie diesen Termin wirklich bestätigen?</p>
+      </div>
+      <div class="modal-actions">
+        <button class="btn" onclick="closeStatusModal()">Abbrechen</button>
+        <button class="btn btn-confirm" id="status-confirm-btn">Bestätigen</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Tab switching
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabContents.forEach(c => c.classList.remove('active'));
+        
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+        
+        // Load data when switching tabs
+        if (btn.dataset.tab === 'appointments') {
+          loadAppointments();
+        } else if (btn.dataset.tab === 'subscribers') {
+          loadSubscribers();
+        }
+      });
+    });
+
+    // Load appointments data
+    function loadAppointments() {
+      const table = document.getElementById('appointments-table');
+      const loader = document.getElementById('appointments-loader');
+      const tableBody = document.getElementById('appointments-body');
+      
+      table.style.display = 'none';
+      loader.style.display = 'block';
+      
+      fetch('/appointments')
+        .then(response => response.json())
+        .then(data => {
+          tableBody.innerHTML = '';
+          
+          // Apply filter if set
+          const filter = document.getElementById('appointment-filter').value;
+          let filteredData = data;
+          
+          if (filter !== 'all') {
+            filteredData = data.filter(item => item.status === filter);
+          }
+          
+          // Apply search if any
+          const searchTerm = document.getElementById('appointment-search').value.toLowerCase();
+          if (searchTerm) {
+            filteredData = filteredData.filter(item => 
+              item.name.toLowerCase().includes(searchTerm) || 
+              item.email.toLowerCase().includes(searchTerm) ||
+              item.message.toLowerCase().includes(searchTerm) ||
+              item._id.toLowerCase().includes(searchTerm)
+            );
+          }
+          
+          filteredData.forEach(appointment => {
+            const row = document.createElement('tr');
+            
+            // Format date
+            const date = new Date(appointment.createdAt);
+            const formattedDate = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+            
+            // Format appointment date if exists
+            let appointmentDate = 'Kein Termin';
+            if (appointment.appointmentDateTime) {
+              const appDate = new Date(appointment.appointmentDateTime);
+              appointmentDate = `${appDate.toLocaleDateString()} ${appDate.toLocaleTimeString()}`;
+            }
+            
+            // Status badge class
+            let statusClass = 'status-pending';
+            if (appointment.status === 'confirmed') {
+              statusClass = 'status-confirmed';
+            } else if (appointment.status === 'canceled') {
+              statusClass = 'status-canceled';
+            }
+            
+            // Status display text
+            let statusText = 'Ausstehend';
+            if (appointment.status === 'confirmed') {
+              statusText = 'Bestätigt';
+            } else if (appointment.status === 'canceled') {
+              statusText = 'Abgesagt';
+            }
+            
+            row.innerHTML = `
+              <td>${formattedDate}</td>
+              <td>${appointment.name}</td>
+              <td>${appointment.email}</td>
+              <td><small>${appointment._id}</small></td>
+              <td class="message-preview">${appointment.message}</td>
+              <td>${appointmentDate}</td>
+              <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+              <td class="controls">
+                <button class="btn" onclick="viewMessage('${appointment._id}')">Ansehen</button>
+                ${appointment.status === 'pending' ? `
+                  <button class="btn btn-confirm" onclick="changeStatus('${appointment._id}', 'confirmed')">Bestätigen</button>
+                  <button class="btn btn-cancel" onclick="changeStatus('${appointment._id}', 'canceled')">Absagen</button>
+                ` : ''}
+                <button class="btn btn-delete" onclick="deleteItem('appointment', '${appointment._id}')">Löschen</button>
+              </td>
+            `;
+            
+            tableBody.appendChild(row);
+          });
+          
+          loader.style.display = 'none';
+          table.style.display = 'table';
+        })
+        .catch(error => {
+          console.error('Error loading appointments:', error);
+          loader.textContent = 'Fehler beim Laden der Daten. Bitte versuchen Sie es erneut.';
+        });
+    }
+
+    // Load subscribers data
+    function loadSubscribers() {
+      const table = document.getElementById('subscribers-table');
+      const loader = document.getElementById('subscribers-loader');
+      const tableBody = document.getElementById('subscribers-body');
+      
+      table.style.display = 'none';
+      loader.style.display = 'block';
+      
+      fetch('/subscribers')
+        .then(response => response.json())
+        .then(data => {
+          tableBody.innerHTML = '';
+          
+          // Apply search if any
+          const searchTerm = document.getElementById('subscriber-search').value.toLowerCase();
+          let filteredData = data;
+          
+          if (searchTerm) {
+            filteredData = filteredData.filter(item => 
+              item.email.toLowerCase().includes(searchTerm)
+            );
+          }
+          
+          filteredData.forEach(subscriber => {
+            const row = document.createElement('tr');
+            
+            // Format date
+            const date = new Date(subscriber.createdAt);
+            const formattedDate = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+            
+            row.innerHTML = `
+              <td>${subscriber.email}</td>
+              <td>${formattedDate}</td>
+              <td class="controls">
+                <button class="btn btn-delete" onclick="deleteItem('subscriber', '${subscriber._id}')">Entfernen</button>
+              </td>
+            `;
+            
+            tableBody.appendChild(row);
+          });
+          
+          loader.style.display = 'none';
+          table.style.display = 'table';
+        })
+        .catch(error => {
+          console.error('Error loading subscribers:', error);
+          loader.textContent = 'Fehler beim Laden der Daten. Bitte versuchen Sie es erneut.';
+        });
+    }
+
+    // View full message
+    let appointments = [];
+    
+    function viewMessage(id) {
+      fetch('/appointments')
+        .then(response => response.json())
+        .then(data => {
+          appointments = data;
+          const appointment = appointments.find(a => a._id === id);
+          
+          if (appointment) {
+            document.getElementById('modal-name').textContent = appointment.name;
+            document.getElementById('modal-email').textContent = appointment.email;
+            document.getElementById('modal-refid').textContent = appointment._id;
+            document.getElementById('modal-message').textContent = appointment.message;
+            
+            if (appointment.appointmentDateTime) {
+              const appDate = new Date(appointment.appointmentDateTime);
+              document.getElementById('modal-appointment').textContent = 
+                `${appDate.toLocaleDateString()} ${appDate.toLocaleTimeString()}`;
+            } else {
+              document.getElementById('modal-appointment').textContent = 'Kein Termin angefragt';
+            }
+            
+            document.getElementById('message-modal').classList.add('active');
+          }
+        });
+    }
+
+    function closeModal() {
+      document.getElementById('message-modal').classList.remove('active');
+    }
+
+    // Handle status changes
+    let currentId = '';
+    let currentAction = '';
+    
+    function changeStatus(id, status) {
+      currentId = id;
+      currentAction = status;
+      
+      const modal = document.getElementById('status-modal');
+      const title = document.getElementById('status-modal-title');
+      const message = document.getElementById('status-modal-message');
+      
+      if (status === 'confirmed') {
+        title.textContent = 'Termin bestätigen';
+        message.textContent = 'Möchten Sie diesen Termin wirklich bestätigen?';
+        document.getElementById('status-confirm-btn').className = 'btn btn-confirm';
+      } else {
+        title.textContent = 'Termin absagen';
+        message.textContent = 'Möchten Sie diesen Termin wirklich absagen?';
+        document.getElementById('status-confirm-btn').className = 'btn btn-cancel';
+      }
+      
+      modal.classList.add('active');
+    }
+    
+    function closeStatusModal() {
+      document.getElementById('status-modal').classList.remove('active');
+    }
+    
+    document.getElementById('status-confirm-btn').addEventListener('click', confirmStatusChange);
+    
+    function confirmStatusChange() {
+      if (!currentId || !currentAction) return;
+      
+      fetch(`/appointments/${currentId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ status: currentAction })
+      })
+        .then(response => response.json())
+        .then(data => {
+          closeStatusModal();
+          loadAppointments();
+        })
+        .catch(error => {
+          console.error('Error updating status:', error);
+          alert('Fehler beim Aktualisieren des Status. Bitte versuchen Sie es erneut.');
+          closeStatusModal();
+        });
+    }
+
+    // Delete item (appointment or subscriber)
+    function deleteItem(type, id) {
+      if (!confirm(`Möchten Sie diesen Eintrag wirklich löschen?`)) return;
+      
+      const endpoint = type === 'appointment' ? `/appointments/${id}` : `/subscribers/${id}`;
+      
+      fetch(endpoint, {
+        method: 'DELETE'
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (type === 'appointment') {
+            loadAppointments();
+          } else {
+            loadSubscribers();
+          }
+        })
+        .catch(error => {
+          console.error(`Error deleting ${type}:`, error);
+          alert(`Fehler beim Löschen. Bitte versuchen Sie es erneut.`);
+        });
+    }
+
+    // Filter and search event listeners
+    document.getElementById('appointment-filter').addEventListener('change', loadAppointments);
+    document.getElementById('appointment-search').addEventListener('input', loadAppointments);
+    document.getElementById('subscriber-search').addEventListener('input', loadSubscribers);
+
+    // Initial data load
+    loadAppointments();
+  </script>
+</body>
+</html> 

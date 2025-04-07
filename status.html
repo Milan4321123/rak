@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Check Your Inquiry Status – Job Werke d.o.o.</title>
+  
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Design System - Core Styles -->
+  <link rel="stylesheet" href="css/design-system.css" />
+  
+  <style>
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    
+    .status-card {
+      background-color: var(--bg-card);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      padding: 30px;
+    }
+    
+    .language-toggle {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .lang-btn {
+      background: none;
+      border: none;
+      color: var(--text-medium);
+      cursor: pointer;
+      font-size: 16px;
+      padding: 5px 10px;
+      transition: color var(--transition-base);
+    }
+    
+    .lang-btn.active {
+      color: var(--primary);
+      font-weight: bold;
+      text-decoration: underline;
+    }
+    
+    .result {
+      margin-top: 30px;
+      display: none;
+    }
+    
+    .result.active {
+      display: block;
+    }
+    
+    .result-card {
+      background-color: var(--bg-light);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      margin-top: 20px;
+    }
+    
+    .result-heading {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .detail-row {
+      display: flex;
+      margin-bottom: 8px;
+    }
+    
+    .detail-label {
+      width: 40%;
+      font-weight: 500;
+    }
+    
+    .detail-value {
+      width: 60%;
+    }
+    
+    .appointment-box {
+      background-color: var(--accent);
+      color: #333;
+      padding: 15px;
+      border-radius: var(--radius-sm);
+      margin-top: 15px;
+    }
+    
+    .appointment-box h3 {
+      margin-bottom: 10px;
+    }
+    
+    .error-message {
+      color: var(--error);
+      margin-top: 15px;
+      text-align: center;
+      display: none;
+    }
+    
+    .footer {
+      margin-top: 30px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="status-card">
+      <!-- Language Toggle -->
+      <div class="language-toggle">
+        <button id="de-lang" class="lang-btn active">Deutsch</button>
+        <button id="en-lang" class="lang-btn">English</button>
+      </div>
+      
+      <!-- German Content -->
+      <div id="german-content">
+        <h1>Anfragestatus prüfen</h1>
+        
+        <!-- Form -->
+        <form id="status-form-de">
+          <div class="form-group">
+            <label for="email-de">Ihre E-Mail-Adresse</label>
+            <input type="email" id="email-de" name="email" required placeholder="email@beispiel.com">
+          </div>
+          
+          <div class="form-group">
+            <label for="ref-id-de">Referenznummer</label>
+            <input type="text" id="ref-id-de" name="id" required placeholder="Referenznummer aus Ihrer Bestätigungs-E-Mail">
+          </div>
+          
+          <button type="submit" class="btn">Status prüfen</button>
+        </form>
+        
+        <!-- Error Message -->
+        <div class="error-message" id="error-de">
+          Wir konnten keine Anfrage mit diesen Daten finden. Bitte überprüfen Sie Ihre E-Mail-Adresse und Referenznummer.
+        </div>
+        
+        <!-- Results Section -->
+        <div class="result" id="result-de">
+          <h2>Ihre Anfrage</h2>
+          
+          <div class="result-card">
+            <div class="result-heading">
+              Status: <span id="status-badge-de" class="status-badge status-pending">In Bearbeitung</span>
+            </div>
+            
+            <div class="detail-row">
+              <div class="detail-label">Name:</div>
+              <div class="detail-value" id="name-de"></div>
+            </div>
+            
+            <div class="detail-row">
+              <div class="detail-label">E-Mail:</div>
+              <div class="detail-value" id="email-display-de"></div>
+            </div>
+            
+            <div class="detail-row">
+              <div class="detail-label">Anfragedatum:</div>
+              <div class="detail-value" id="date-de"></div>
+            </div>
+            
+            <div class="detail-row" id="last-updated-row-de" style="display: none;">
+              <div class="detail-label">Letzte Aktualisierung:</div>
+              <div class="detail-value" id="last-updated-de"></div>
+            </div>
+            
+            <div class="detail-row" id="message-preview-row-de" style="display: none;">
+              <div class="detail-label">Ihre Nachricht:</div>
+              <div class="detail-value" id="message-preview-de"></div>
+            </div>
+            
+            <!-- Appointment Box (conditional) -->
+            <div class="appointment-box hidden" id="appointment-box-de">
+              <h3>Termindetails</h3>
+              <div class="detail-row">
+                <div class="detail-label">Datum:</div>
+                <div class="detail-value" id="appointment-date-de"></div>
+              </div>
+              <div class="detail-row">
+                <div class="detail-label">Uhrzeit:</div>
+                <div class="detail-value" id="appointment-time-de"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- English Content -->
+      <div id="english-content" class="hidden">
+        <h1>Check Inquiry Status</h1>
+        
+        <!-- Form -->
+        <form id="status-form-en">
+          <div class="form-group">
+            <label for="email-en">Your Email Address</label>
+            <input type="email" id="email-en" name="email" required placeholder="email@example.com">
+          </div>
+          
+          <div class="form-group">
+            <label for="ref-id-en">Reference Number</label>
+            <input type="text" id="ref-id-en" name="id" required placeholder="Reference number from your confirmation email">
+          </div>
+          
+          <button type="submit" class="btn">Check Status</button>
+        </form>
+        
+        <!-- Error Message -->
+        <div class="error-message" id="error-en">
+          We couldn't find an inquiry with this information. Please verify your email and reference number.
+        </div>
+        
+        <!-- Results Section -->
+        <div class="result" id="result-en">
+          <h2>Your Inquiry</h2>
+          
+          <div class="result-card">
+            <div class="result-heading">
+              Status: <span id="status-badge-en" class="status-badge status-pending">Pending</span>
+            </div>
+            
+            <div class="detail-row">
+              <div class="detail-label">Name:</div>
+              <div class="detail-value" id="name-en"></div>
+            </div>
+            
+            <div class="detail-row">
+              <div class="detail-label">Email:</div>
+              <div class="detail-value" id="email-display-en"></div>
+            </div>
+            
+            <div class="detail-row">
+              <div class="detail-label">Inquiry Date:</div>
+              <div class="detail-value" id="date-en"></div>
+            </div>
+            
+            <div class="detail-row" id="last-updated-row-en" style="display: none;">
+              <div class="detail-label">Last Updated:</div>
+              <div class="detail-value" id="last-updated-en"></div>
+            </div>
+            
+            <div class="detail-row" id="message-preview-row-en" style="display: none;">
+              <div class="detail-label">Your Message:</div>
+              <div class="detail-value" id="message-preview-en"></div>
+            </div>
+            
+            <!-- Appointment Box (conditional) -->
+            <div class="appointment-box hidden" id="appointment-box-en">
+              <h3>Appointment Details</h3>
+              <div class="detail-row">
+                <div class="detail-label">Date:</div>
+                <div class="detail-value" id="appointment-date-en"></div>
+              </div>
+              <div class="detail-row">
+                <div class="detail-label">Time:</div>
+                <div class="detail-value" id="appointment-time-en"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Footer -->
+      <div class="footer">
+        <p id="footer-de">Zurück zur <a href="index.html">Startseite</a></p>
+        <p id="footer-en" class="hidden">Back to <a href="index.html?lang=en">Homepage</a></p>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Language Toggle
+    const deLangBtn = document.getElementById('de-lang');
+    const enLangBtn = document.getElementById('en-lang');
+    const germanContent = document.getElementById('german-content');
+    const englishContent = document.getElementById('english-content');
+    const footerDe = document.getElementById('footer-de');
+    const footerEn = document.getElementById('footer-en');
+    
+    deLangBtn.addEventListener('click', () => {
+      deLangBtn.classList.add('active');
+      enLangBtn.classList.remove('active');
+      germanContent.classList.remove('hidden');
+      englishContent.classList.add('hidden');
+      footerDe.classList.remove('hidden');
+      footerEn.classList.add('hidden');
+    });
+    
+    enLangBtn.addEventListener('click', () => {
+      enLangBtn.classList.add('active');
+      deLangBtn.classList.remove('active');
+      englishContent.classList.remove('hidden');
+      germanContent.classList.add('hidden');
+      footerEn.classList.remove('hidden');
+      footerDe.classList.add('hidden');
+    });
+    
+    // Check URL for language parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('lang') === 'en') {
+      enLangBtn.click();
+    }
+    
+    // Form handling - German
+    const statusFormDe = document.getElementById('status-form-de');
+    const resultDe = document.getElementById('result-de');
+    const errorDe = document.getElementById('error-de');
+    
+    statusFormDe.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('email-de').value;
+      const id = document.getElementById('ref-id-de').value;
+      
+      resultDe.classList.remove('active');
+      errorDe.style.display = 'none';
+      
+      try {
+        const response = await fetch(`/check-status?email=${encodeURIComponent(email)}&id=${encodeURIComponent(id)}`);
+        const data = await response.json();
+        
+        if (!response.ok || !data.success) {
+          errorDe.style.display = 'block';
+          return;
+        }
+        
+        // Display the result
+        document.getElementById('name-de').textContent = data.data.name;
+        document.getElementById('email-display-de').textContent = data.data.email;
+        document.getElementById('date-de').textContent = data.data.createdAt;
+        
+        // Display last updated date if available
+        const lastUpdatedRow = document.getElementById('last-updated-row-de');
+        if (data.data.lastUpdated) {
+          document.getElementById('last-updated-de').textContent = data.data.lastUpdated;
+          lastUpdatedRow.style.display = 'flex';
+        } else {
+          lastUpdatedRow.style.display = 'none';
+        }
+        
+        // Display message preview if available
+        const messagePreviewRow = document.getElementById('message-preview-row-de');
+        if (data.data.messagePreview) {
+          document.getElementById('message-preview-de').textContent = data.data.messagePreview;
+          messagePreviewRow.style.display = 'flex';
+        } else {
+          messagePreviewRow.style.display = 'none';
+        }
+        
+        // Update status badge
+        const statusBadge = document.getElementById('status-badge-de');
+        statusBadge.textContent = data.data.statusText;
+        statusBadge.className = 'status-badge';
+        
+        if (data.data.status === 'confirmed') {
+          statusBadge.classList.add('status-confirmed');
+        } else if (data.data.status === 'canceled') {
+          statusBadge.classList.add('status-canceled');
+        } else {
+          statusBadge.classList.add('status-pending');
+        }
+        
+        // Show appointment details if available
+        const appointmentBox = document.getElementById('appointment-box-de');
+        if (data.data.hasAppointment) {
+          document.getElementById('appointment-date-de').textContent = data.data.appointmentDateTime.date;
+          document.getElementById('appointment-time-de').textContent = data.data.appointmentDateTime.time;
+          appointmentBox.classList.remove('hidden');
+        } else {
+          appointmentBox.classList.add('hidden');
+        }
+        
+        resultDe.classList.add('active');
+      } catch (error) {
+        console.error('Error checking status:', error);
+        errorDe.style.display = 'block';
+      }
+    });
+    
+    // Form handling - English
+    const statusFormEn = document.getElementById('status-form-en');
+    const resultEn = document.getElementById('result-en');
+    const errorEn = document.getElementById('error-en');
+    
+    statusFormEn.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('email-en').value;
+      const id = document.getElementById('ref-id-en').value;
+      
+      resultEn.classList.remove('active');
+      errorEn.style.display = 'none';
+      
+      try {
+        const response = await fetch(`/check-status?email=${encodeURIComponent(email)}&id=${encodeURIComponent(id)}`);
+        const data = await response.json();
+        
+        if (!response.ok || !data.success) {
+          errorEn.style.display = 'block';
+          return;
+        }
+        
+        // Display the result
+        document.getElementById('name-en').textContent = data.data.name;
+        document.getElementById('email-display-en').textContent = data.data.email;
+        document.getElementById('date-en').textContent = data.data.createdAt;
+        
+        // Display last updated date if available
+        const lastUpdatedRow = document.getElementById('last-updated-row-en');
+        if (data.data.lastUpdated) {
+          document.getElementById('last-updated-en').textContent = data.data.lastUpdated;
+          lastUpdatedRow.style.display = 'flex';
+        } else {
+          lastUpdatedRow.style.display = 'none';
+        }
+        
+        // Display message preview if available
+        const messagePreviewRow = document.getElementById('message-preview-row-en');
+        if (data.data.messagePreview) {
+          document.getElementById('message-preview-en').textContent = data.data.messagePreview;
+          messagePreviewRow.style.display = 'flex';
+        } else {
+          messagePreviewRow.style.display = 'none';
+        }
+        
+        // Update status badge
+        const statusBadge = document.getElementById('status-badge-en');
+        statusBadge.textContent = data.data.statusText;
+        statusBadge.className = 'status-badge';
+        
+        if (data.data.status === 'confirmed') {
+          statusBadge.classList.add('status-confirmed');
+        } else if (data.data.status === 'canceled') {
+          statusBadge.classList.add('status-canceled');
+        } else {
+          statusBadge.classList.add('status-pending');
+        }
+        
+        // Show appointment details if available
+        const appointmentBox = document.getElementById('appointment-box-en');
+        if (data.data.hasAppointment) {
+          document.getElementById('appointment-date-en').textContent = data.data.appointmentDateTime.date;
+          document.getElementById('appointment-time-en').textContent = data.data.appointmentDateTime.time;
+          appointmentBox.classList.remove('hidden');
+        } else {
+          appointmentBox.classList.add('hidden');
+        }
+        
+        resultEn.classList.add('active');
+      } catch (error) {
+        console.error('Error checking status:', error);
+        errorEn.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html> 

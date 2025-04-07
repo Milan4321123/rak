@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>Dienstleistungen – Job Werke d.o.o.</title>
+  <title>Dienstleistungen – Remix Gradnja</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Google Font -->
@@ -11,47 +11,49 @@
     rel="stylesheet"
   />
 
+  <!-- Design System - Core Styles -->
+  <link rel="stylesheet" href="css/design-system.css" />
+  
   <!-- Main CSS (replace with your actual CSS file) -->
   <link rel="stylesheet" href="css/dienstleistungen.css" />
 </head>
 <body>
 
-  <!-- ========== NAVBAR ========== -->
-  <header class="navbar">
-    <div class="navbar__logo">
-      <img src="assets/videos/logo33.png" style="max-height: 50px; width: auto;" />
-    </div>
-    <!-- HAMBURGER (mobile) -->
-    <div class="navbar__toggle" id="mobileToggle">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-
-    <!-- NAV MENU -->
-    <nav class="navbar__menu" id="navbarMenu">
-      <!-- GERMAN LINKS -->
-      <div class="navbar__links german">
-        <a href="index.html">Home</a>
-        <a href="uber-uns.html">Über uns</a>
-        <a href="dienstleistungen.html" class="active">Dienstleistungen</a>
-        <a href="arbeiten.html">Mit uns arbeiten</a>
-        <a href="kontakt.html">Kontakt</a>
+  <!-- NEW NAVIGATION -->
+  <header class="header">
+    <div class="header-container">
+      <div class="logo">
+        <img src="assets/videos/logo33.png" alt="Remix Logo" />
       </div>
-      <!-- ENGLISH LINKS -->
-      <div class="navbar__links english hidden">
-        <a href="index.html?lang=en">Home</a>
-        <a href="uber-uns.html?lang=en">About Us</a>
-        <a href="dienstleistungen.html?lang=en" class="active">Services</a>
-        <a href="arbeiten.html?lang=en">Work With Us</a>
-        <a href="kontakt.html?lang=en">Contact</a>
-      </div>
-
-      <!-- LANGUAGE TOGGLE -->
-      <button id="toggleLang" class="lang-btn">
-        English
+      
+      <button class="mobile-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
-    </nav>
+      
+      <nav class="nav-menu" id="navMenu">
+        <ul class="nav-list german">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="uber-uns.html">Über uns</a></li>
+          <li><a href="dienstleistungen.html" class="active">Dienstleistungen</a></li>
+          <li><a href="arbeiten.html">Mit uns arbeiten</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+        
+        <ul class="nav-list english hidden">
+          <li><a href="index.html?lang=en">Home</a></li>
+          <li><a href="uber-uns.html?lang=en">About Us</a></li>
+          <li><a href="dienstleistungen.html?lang=en" class="active">Services</a></li>
+          <li><a href="arbeiten.html?lang=en">Work With Us</a></li>
+          <li><a href="kontakt.html?lang=en">Contact</a></li>
+        </ul>
+        
+        <button id="toggleLang" class="lang-button">
+          English
+        </button>
+      </nav>
+    </div>
   </header>
 
 
@@ -68,9 +70,19 @@
         Von der Planung bis zur schlüsselfertigen Übergabe
       </p>
       <a href="#approachDe" class="hero-btn">Projektstarter</a>
+      
+      <!-- Quick contact form (German) -->
+      <div class="hero-quick-contact">
+        <form id="quick-contact-de" action="/send-email" method="POST" class="quick-form">
+          <input type="hidden" name="language" value="de">
+          <input type="hidden" name="hp" value="">
+          <input type="email" name="email" placeholder="Ihre E-Mail" required>
+          <button type="submit">Kontakt anfragen</button>
+        </form>
+      </div>
     </div>
     <div class="hero-angled-image">
-      <img src="assets/img/14.jpg" alt="Moderne Baustelle" />
+      <img src="assets/new/wiht projecdt planning.png" alt="Moderne Baustelle" />
     </div>
   </div>
 </section>
@@ -109,7 +121,7 @@
         </div>
       </div>
       <div class="approach-visual">
-        <img src="assets/img/8.jpg" alt="BIM Planung" />
+        <img src="assets/new/paint.png" alt="BIM Planung" />
       </div>
     </div>
   </div>
@@ -124,7 +136,7 @@
   </p>
   <div class="key-services-grid">
     <div class="key-service-card">
-      <img src="assets/img/12.jpg" alt="Bauplanung">
+      <img src="assets/new/fours consrtcution perople.png" alt="Bauplanung">
       <div class="card-content">
         <h3>Planung & Statik</h3>
         <p>
@@ -134,7 +146,7 @@
       </div>
     </div>
     <div class="key-service-card">
-      <img src="assets/img/22.jpg" alt="Hochbau">
+      <img src="assets/new/worker.png" alt="Hochbau">
       <div class="card-content">
         <h3>Rohbau & Ausbau</h3>
         <p>
@@ -144,7 +156,7 @@
       </div>
     </div>
     <div class="key-service-card">
-      <img src="assets/img/7.jpg" alt="Sanierung">
+      <img src="assets/new/sanieriung before after iage.png" alt="Sanierung">
       <div class="card-content">
         <h3>Altbausanierung</h3>
         <p>
@@ -165,19 +177,19 @@
   </p>
   <div class="industries-de-cards">
     <div class="industry-tile">
-      <img src="assets/img/12.jpg" alt="Wohnungsbau">
+      <img src="assets/new/two constuction worker .png" alt="Wohnungsbau">
       <h3>Wohnungsbau</h3>
     </div>
     <div class="industry-tile">
-      <img src="assets/img/13.jpg" alt="Gewerbeimmobilien">
+      <img src="assets/new/losgisrtik er .png" alt="Gewerbeimmobilien">
       <h3>Gewerbeimmobilien</h3>
     </div>
     <div class="industry-tile">
-      <img src="assets/img/15.jpg" alt="Industriebau">
+      <img src="assets/new/logistik cperson.png" alt="Industriebau">
       <h3>Industriebau</h3>
     </div>
     <div class="industry-tile">
-      <img src="assets/img/14.jpg" alt="Infrastruktur">
+      <img src="assets/new/paintering tool.png" alt="Tiefbau">
       <h3>Tiefbau</h3>
     </div>
   </div>
@@ -193,7 +205,7 @@
     </p>
     <div class="compliance-highlights">
       <div class="compliance-box">
-        <img src="assets/img/22.jpg" alt="Verträge">
+        <img src="assets/new/construction worker wokring.png" alt="Verträge">
         <h3>Feste Preisbindung</h3>
         <p>
           Kostensicherheit durch bindende Angebote 
@@ -201,7 +213,7 @@
         </p>
       </div>
       <div class="compliance-box">
-        <img src="assets/img/15.jpg" alt="Sicherheit">
+        <img src="assets/img/29.jpg" alt="Sicherheit">
         <h3>Baustellensicherheit</h3>
         <p>
           DGUV-zertifizierte Sicherheitskonzepte 
@@ -209,7 +221,7 @@
         </p>
       </div>
       <div class="compliance-box">
-        <img src="assets/img/12.jpg" alt="Garantie">
+        <img src="assets/new/constucntion material.png" alt="Garantie">
         <h3>5-Jahres-Garantie</h3>
         <p>
           Volle Gewährleistung für alle 
@@ -335,7 +347,33 @@
       Vereinbaren Sie jetzt ein unverbindliches 
       Planungsgespräch mit unseren Baudirektoren.
     </p>
-    <a href="kontakt.html#name" class="cta-btn">Kostenlose Erstberatung</a>
+    
+    <!-- Extended contact form (German) -->
+    <div class="cta-contact-form">
+      <form id="cta-form-de" action="/send-email" method="POST">
+        <input type="hidden" name="language" value="de">
+        <input type="hidden" name="hp" value="">
+        <div class="form-row">
+          <input type="text" name="name" placeholder="Name" required>
+          <input type="email" name="email" placeholder="E-Mail" required>
+        </div>
+        <div class="form-row">
+          <textarea name="message" placeholder="Ihre Nachricht" rows="3" required></textarea>
+        </div>
+        <div class="form-row checkbox-row">
+          <label>
+            <input type="checkbox" name="wantsAppointment"> Terminwunsch
+          </label>
+          <div class="appointment-fields" style="display: none;">
+            <input type="date" name="terminDate">
+            <input type="time" name="terminTime">
+          </div>
+        </div>
+        <button type="submit" class="cta-btn">Nachricht senden</button>
+      </form>
+    </div>
+    
+    <a href="kontakt.html#name" class="cta-btn secondary">Zur vollständigen Kontaktseite</a>
   </div>
 </section>
 
@@ -360,10 +398,20 @@
             free from the hassles of labor leasing.
           </p>
           <a href="#approachEn" class="hero-btn">Learn More</a>
+          
+          <!-- Quick contact form (English) -->
+          <div class="hero-quick-contact">
+            <form id="quick-contact-en" action="/send-email" method="POST" class="quick-form">
+              <input type="hidden" name="language" value="en">
+              <input type="hidden" name="hp" value="">
+              <input type="email" name="email" placeholder="Your Email" required>
+              <button type="submit">Request Info</button>
+            </form>
+          </div>
         </div>
         <!-- Right angled image/graphic -->
         <div class="hero-angled-image">
-          <img src="assets/img/14.jpg" alt="Service Hero" />
+          <img src="assets/new/wiht projecdt planning.png" alt="Service Hero" />
         </div>
       </div>
     </section>
@@ -388,7 +436,7 @@
             <div class="step-box">
               <h3>1. Consultation</h3>
               <p>
-                We’ll identify which roles or tasks you’d like to outsource 
+                We'll identify which roles or tasks you'd like to outsource 
                 – from hospitality to office reception, logistics, or beyond.
               </p>
             </div>
@@ -411,7 +459,7 @@
           </div>
           <!-- Right column: image or video -->
           <div class="approach-visual">
-            <img src="assets/img/8.jpg" alt="Approach Visual" />
+            <img src="assets/new/paint.png" alt="Approach Visual" />
           </div>
         </div>
       </div>
@@ -430,35 +478,34 @@
       <div class="key-services-grid">
         <!-- Card 1 -->
         <div class="key-service-card">
-          <img src="assets/img/12.jpg" alt="Consulting">
+          <img src="assets/new/fours consrtcution perople.png" alt="Consulting">
           <div class="card-content">
-            <h3>Consulting & Planning</h3>
+            <h3>Planning & Structural Engineering</h3>
             <p>
-              We assess your company’s workflow 
-              and tailor an outsourcing approach.
+              Structural planning according to DIN standards
+              with 3D visualization
             </p>
           </div>
         </div>
         <!-- Card 2 -->
         <div class="key-service-card">
-          <img src="assets/img/22.jpg" alt="Outsourcing">
+          <img src="assets/new/worker.png" alt="Outsourcing">
           <div class="card-content">
-            <h3>Outsourcing Specialists</h3>
+            <h3>Shell & Interior Construction</h3>
             <p>
-              Our staff remain our employees – 
-              guaranteeing compliance and efficiency.
+              Solid construction in reinforced concrete
+              with quality certification
             </p>
           </div>
         </div>
         <!-- Card 3 -->
         <div class="key-service-card">
-          <img src="assets/img/7.jpg" alt="Quality Assurance">
+          <img src="assets/new/sanieriung before after iage.png" alt="Quality Assurance">
           <div class="card-content">
-            <h3>Training & Quality</h3>
+            <h3>Historic Building Renovation</h3>
             <p>
-              Industry-specific sessions, 
-              language training, and routine audits 
-              keep performance high.
+              Heritage-compliant renovation
+              with modern building technology
             </p>
           </div>
         </div>
@@ -477,19 +524,19 @@
       </p>
       <div class="industries-en-cards">
         <div class="industry-tile">
-          <img src="assets/img/12.jpg" alt="Construction & Logistics">
+          <img src="assets/new/two constuction worker .png" alt="Construction & Logistics">
           <h3>Construction & Logistics</h3>
         </div>
         <div class="industry-tile">
-          <img src="assets/img/13.jpg" alt="Hospitality">
+          <img src="assets/new/losgisrtik er .png" alt="Hospitality">
           <h3>Hospitality & Hotels</h3>
         </div>
         <div class="industry-tile">
-          <img src="assets/img/15.jpg" alt="Office">
+          <img src="assets/new/logistik cperson.png" alt="Office">
           <h3>Office & Reception</h3>
         </div>
         <div class="industry-tile">
-          <img src="../assets/img/14.jpg" alt="Others">
+          <img src="assets/new/paintering tool.png" alt="Others">
           <h3>And More…</h3>
         </div>
       </div>
@@ -508,24 +555,18 @@
         </p>
         <div class="compliance-highlights">
           <div class="compliance-box">
-            <video autoplay muted loop playsinline>
-              <img src="assets/img/22.jpg" alt="Verträge">
-            </video>
+            <img src="assets/new/construction worker wokring.png" alt="Contracts">
             <h3>Well-Defined Terms</h3>
             <p>Roles & responsibilities are clearly documented.</p>
           </div>
           <div class="compliance-box">
-            <video autoplay muted loop playsinline>
-              <img src="assets/img/15.jpg" alt="Sicherheit">
-            </video>
+            <img src="assets/img/29.jpg" alt="Safety">
             <h3>Fully Employed Staff</h3>
             <p>We handle payroll and taxes, 
-               so there’s no burden on you.</p>
+               so there's no burden on you.</p>
           </div>
           <div class="compliance-box">
-            <video autoplay muted loop playsinline>
-              <img src="assets/img/12.jpg" alt="Garantie">
-            </video>
+            <img src="assets/new/constucntion material.png" alt="Guarantee">
             <h3>Liability & Security</h3>
             <p>
               Safety, quality issues, or damages – 
@@ -575,7 +616,7 @@
             our service team handled it all, 
             streamlining the entire project.
           </p>
-          <blockquote>“We never knew outsourcing could be so effective.”</blockquote>
+          <blockquote>"We never knew outsourcing could be so effective."</blockquote>
         </div>
         <!-- Case 2 -->
         <div class="case-en-box">
@@ -584,7 +625,7 @@
             A dedicated crew kept a large office complex spotless, 
             boosting employee satisfaction and cutting overhead costs.
           </p>
-          <blockquote>“One less thing to worry about in our daily operations.”</blockquote>
+          <blockquote>"One less thing to worry about in our daily operations."</blockquote>
         </div>
         <!-- Case 3 -->
         <div class="case-en-box">
@@ -593,7 +634,7 @@
             Our specialists optimized goods receiving 
             and shipping, reducing errors and speeding deliveries.
           </p>
-          <blockquote>“A noticeable improvement in turnaround times.”</blockquote>
+          <blockquote>"A noticeable improvement in turnaround times."</blockquote>
         </div>
       </div>
     </section>
@@ -623,7 +664,7 @@
           <div class="faq-accordion-answer">
             <p>
               No – our workforce is fully employed and insured within our company, 
-              so you don’t assume liability.
+              so you don't assume liability.
             </p>
           </div>
         </div>
@@ -633,7 +674,7 @@
           </button>
           <div class="faq-accordion-answer">
             <p>
-              Absolutely. We’re happy to discuss transitions 
+              Absolutely. We're happy to discuss transitions 
               if you wish to bring certain professionals into your own team.
             </p>
           </div>
@@ -648,10 +689,36 @@
       <div class="final-cta-inner">
         <h2>Ready to Outsource?</h2>
         <p>
-          Drop us your inquiry, and we’ll build a 
+          Drop us your inquiry, and we'll build a 
           tailored solution for your operational needs.
         </p>
-        <a href="kontakt.html?lang=en#name-en" class="cta-btn">Send Inquiry</a>
+        
+        <!-- Extended contact form (English) -->
+        <div class="cta-contact-form">
+          <form id="cta-form-en" action="/send-email" method="POST">
+            <input type="hidden" name="language" value="en">
+            <input type="hidden" name="hp" value="">
+            <div class="form-row">
+              <input type="text" name="name" placeholder="Name" required>
+              <input type="email" name="email" placeholder="Email" required>
+            </div>
+            <div class="form-row">
+              <textarea name="message" placeholder="Your Message" rows="3" required></textarea>
+            </div>
+            <div class="form-row checkbox-row">
+              <label>
+                <input type="checkbox" name="wantsAppointment"> Schedule Appointment
+              </label>
+              <div class="appointment-fields" style="display: none;">
+                <input type="date" name="terminDate">
+                <input type="time" name="terminTime">
+              </div>
+            </div>
+            <button type="submit" class="cta-btn">Send Message</button>
+          </form>
+        </div>
+        
+        <a href="kontakt.html?lang=en#name-en" class="cta-btn secondary">Go to Full Contact Page</a>
       </div>
     </section>
 
@@ -660,8 +727,24 @@
 
   <!-- ========== FOOTER (SAME FOR BOTH LANGS) ========== -->
   <footer class="footer">
-    <p>Impressum &bull; Datenschutz &bull; Cookie-Einstellungen</p>
-    <p>&copy; 2024 Job Werke d.o.o. Alle Rechte vorbehalten.</p>
+    <div class="footer-content">
+      <div class="footer-newsletter">
+        <h4 class="german">Newsletter abonnieren</h4>
+        <h4 class="english hidden">Subscribe to Newsletter</h4>
+        <form id="subscribe-form" action="/subscribe" method="POST">
+          <input type="email" name="email" placeholder="Email" required>
+          <input type="hidden" name="language" id="language-field" value="de">
+          <button type="submit">
+            <span class="german">Abonnieren</span>
+            <span class="english hidden">Subscribe</span>
+          </button>
+        </form>
+      </div>
+      <div class="footer-links">
+        <p>Impressum &bull; Datenschutz &bull; Cookie-Einstellungen</p>
+        <p>&copy; 2024 Remix Gradnja. Alle Rechte vorbehalten.</p>
+      </div>
+    </div>
   </footer>
 
 
@@ -681,11 +764,68 @@
     const englishDivs = document.querySelectorAll('.english');
     let isGerman = true;
 
+    // Check URL for language preference
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('lang') === 'en') {
+      isGerman = false;
+      germanDivs.forEach(el => el.classList.toggle('hidden', !isGerman));
+      englishDivs.forEach(el => el.classList.toggle('hidden', isGerman));
+      langBtn.textContent = isGerman ? 'English' : 'Deutsch';
+      document.getElementById('language-field').value = 'en';
+    }
+
     langBtn.addEventListener('click', () => {
       isGerman = !isGerman;
       germanDivs.forEach(el => el.classList.toggle('hidden', !isGerman));
       englishDivs.forEach(el => el.classList.toggle('hidden', isGerman));
       langBtn.textContent = isGerman ? 'English' : 'Deutsch';
+      
+      // Update the language field in the newsletter form
+      document.getElementById('language-field').value = isGerman ? 'de' : 'en';
+    });
+
+    // Handle CTA buttons to direct to contact form
+    document.addEventListener('DOMContentLoaded', function() {
+      // German CTA
+      const germanCta = document.querySelector('.final-cta-de .cta-btn');
+      if (germanCta) {
+        germanCta.addEventListener('click', function(e) {
+          // Going to kontakt.html#name anchor with language parameter
+          window.location.href = 'kontakt.html#name';
+        });
+      }
+
+      // English CTA
+      const englishCta = document.querySelector('.final-cta-en .cta-btn');
+      if (englishCta) {
+        englishCta.addEventListener('click', function(e) {
+          // Going to kontakt.html#name-en anchor with language parameter
+          window.location.href = 'kontakt.html?lang=en#name-en';
+        });
+      }
+
+      // Handle the hero button
+      const heroBtn = document.querySelector('.hero-btn');
+      if (heroBtn) {
+        heroBtn.addEventListener('click', function(e) {
+          // Scrolls to the specified section
+          const targetId = this.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            e.preventDefault();
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      }
+
+      // Newsletter form submission
+      const subscribeForm = document.getElementById('subscribe-form');
+      if (subscribeForm) {
+        subscribeForm.addEventListener('submit', function(e) {
+          // Form will submit normally to the /subscribe endpoint
+          // The server will handle the redirect to the thank you page
+        });
+      }
     });
   </script>
 

@@ -7,17 +7,36 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     // ======================================================================
-    // 1) MOBILE NAVBAR TOGGLE
+    // 1) MOBILE MENU TOGGLE
     // ======================================================================
-    const mobileToggle = document.getElementById('mobileToggle');
-    const navbarMenu = document.getElementById('navbar__Menu');
-  
-    if (mobileToggle && navbarMenu) {
-      mobileToggle.addEventListener('click', () => {
-        navbarMenu.classList.toggle('nav-open');
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    
+    if (menuToggle && navMenu) {
+      menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        
+        // Optional: Toggle animation for hamburger icon
+        const spans = menuToggle.querySelectorAll('span');
+        spans.forEach(span => {
+          span.classList.toggle('active');
+        });
+      });
+      
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+          if (navMenu.classList.contains('active')) {
+            navMenu.classList.remove('active');
+            const spans = menuToggle.querySelectorAll('span');
+            spans.forEach(span => {
+              span.classList.remove('active');
+            });
+          }
+        }
       });
     }
-  
+    
     // ======================================================================
     // 2) FADE-IN OBSERVER
     // ======================================================================
@@ -51,6 +70,34 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+  
+  // 2b) TABBED SERVICES (English)
+  const tabButtonsEn = document.querySelectorAll('#servicesEn .svc-tab-btn');
+  const panelsEn = document.querySelectorAll('#servicesEn .services-panel');
+  
+  if (tabButtonsEn.length > 0) {
+    // Ensure first panel is active initially
+    if (panelsEn.length > 0) {
+      panelsEn[0].classList.add('active');
+    }
+    
+    tabButtonsEn.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Clear active states
+        tabButtonsEn.forEach(b => b.classList.remove('active'));
+        panelsEn.forEach(p => p.classList.remove('active'));
+
+        // Set this button active
+        btn.classList.add('active');
+        // Show the panel
+        const targetId = btn.getAttribute('data-tab');
+        const targetPanel = document.getElementById(targetId);
+        if(targetPanel) {
+          targetPanel.classList.add('active');
+        }
+      });
+    });
+  }
   // 2) TESTIMONIALS SLIDER (German)
   const slidesDe = document.querySelectorAll('#testimonialSliderDe .testimonial-slide');
   const arrowLeftDe = document.getElementById('arrowLeftDe');
@@ -80,6 +127,39 @@ document.addEventListener('DOMContentLoaded', () => {
       showSlideDe(idx);
     });
   });
+  
+  // 2b) TESTIMONIALS SLIDER (English)
+  const slidesEn = document.querySelectorAll('#testimonialSliderEn .testimonial-slide');
+  const arrowLeftEn = document.getElementById('arrowLeftEn');
+  const arrowRightEn = document.getElementById('arrowRightEn');
+  const dotsEn = document.querySelectorAll('#dotsEn .dot');
+  let currentSlideEn = 0;
+
+  function showSlideEn(index) {
+    slidesEn.forEach(s => s.classList.remove('active'));
+    dotsEn.forEach(d => d.classList.remove('active'));
+    slidesEn[index].classList.add('active');
+    dotsEn[index].classList.add('active');
+  }
+  
+  if (slidesEn.length > 0) {
+    showSlideEn(currentSlideEn);
+
+    arrowLeftEn.addEventListener('click', () => {
+      currentSlideEn = (currentSlideEn - 1 + slidesEn.length) % slidesEn.length;
+      showSlideEn(currentSlideEn);
+    });
+    arrowRightEn.addEventListener('click', () => {
+      currentSlideEn = (currentSlideEn + 1) % slidesEn.length;
+      showSlideEn(currentSlideEn);
+    });
+    dotsEn.forEach((dot, idx) => {
+      dot.addEventListener('click', () => {
+        currentSlideEn = idx;
+        showSlideEn(idx);
+      });
+    });
+  }
   // ===========================
   // 2) TIMELINE PROGRESS BAR
   // ===========================

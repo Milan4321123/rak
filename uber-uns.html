@@ -2,10 +2,10 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>Über uns – Job Werke d.o.o.</title>
+  <title>Über uns – Remix Gradnja</title>
   <meta 
     name="description" 
-    content="Erfahren Sie, wie Job Werke d.o.o. gegründet wurde, welche Visionen uns antreiben und wie wir Unternehmen in Europa mit Fachkräften aus aller Welt verbinden – als Arbeitsvermittler und Dienstleister." 
+    content="Erfahren Sie, wie Remix Gradnja gegründet wurde, welche Visionen uns antreiben und wie wir Bau- und Renovierungsprojekte in Europa realisieren – mit Qualität, Expertise und Termintreue." 
   />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -15,45 +15,49 @@
     rel="stylesheet"
   />
 
+  <!-- Design System - Core Styles -->
+  <link rel="stylesheet" href="css/design-system.css" />
+  
   <!-- Link to external CSS -->
   <link rel="stylesheet" href="css/uber-uns.css" />
 </head>
 <body>
 
-  <!-- ========== NAVIGATION BAR ========== -->
-  <header class="navbar">
-    <div class="navbar__logo">
-      <img src="assets/videos/logo33.png" style="max-height: 50px; width: auto;" />
-    </div>
-
-    <!-- HAMBURGER ICON (mobile) -->
-    <div class="navbar__toggle" id="mobileToggle">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-
-    <!-- NAV MENU -->
-    <nav class="navbar__menu" id="navbarMenu">
-      <!-- GERMAN LINKS -->
-      <div class="navbar__links german">
-        <a href="index.html">Home</a>
-        <a href="uber-uns.html" class="active">Über uns</a>
-        <a href="dienstleistungen.html">Dienstleistungen</a>
-        <a href="arbeiten.html">Mit uns arbeiten</a>
-        <a href="kontakt.html">Kontakt</a>
+  <!-- NEW NAVIGATION -->
+  <header class="header">
+    <div class="header-container">
+      <div class="logo">
+        <img src="assets/videos/logo33.png" alt="Remix Logo" />
       </div>
-      <!-- ENGLISH LINKS -->
-      <div class="navbar__links english hidden">
-        <a href="index.html?lang=en">Home</a>
-        <a href="uber-uns.html?lang=en" class="active">About Us</a>
-        <a href="dienstleistungen.html?lang=en">Services</a>
-        <a href="arbeiten.html?lang=en">Work With Us</a>
-        <a href="kontakt.html?lang=en">Contact</a>
-      </div>
-      <!-- LANGUAGE TOGGLE -->
-      <button id="toggleLang" class="lang-btn">English</button>
-    </nav>
+      
+      <button class="mobile-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
+      <nav class="nav-menu" id="navMenu">
+        <ul class="nav-list german">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="uber-uns.html" class="active">Über uns</a></li>
+          <li><a href="dienstleistungen.html">Dienstleistungen</a></li>
+          <li><a href="arbeiten.html">Mit uns arbeiten</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+        
+        <ul class="nav-list english hidden">
+          <li><a href="index.html?lang=en">Home</a></li>
+          <li><a href="uber-uns.html?lang=en" class="active">About Us</a></li>
+          <li><a href="dienstleistungen.html?lang=en">Services</a></li>
+          <li><a href="arbeiten.html?lang=en">Work With Us</a></li>
+          <li><a href="kontakt.html?lang=en">Contact</a></li>
+        </ul>
+        
+        <button id="toggleLang" class="lang-button">
+          English
+        </button>
+      </nav>
+    </div>
   </header>
 
   <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -66,14 +70,14 @@
         <!-- Left Column: Image or Video -->  
         <div class="hero-image">
           <!-- Placeholder or scenic image -->
-         <img src="assets/img/29.jpg" alt="Unsere Geschichte">
+         <img src="assets/new/constuciton worker.png" alt="Unsere Geschichte">
         </div>
         <!-- Right Column: Intro Text -->
         <div class="hero-text">
           <h1>Wer wir sind und was uns antreibt</h1>
           <p>
             Entdecken Sie unsere Reise von 
-            <strong>Remix</strong> zu Job Werke d.o.o., 
+            <strong>Remix</strong> zu Remix Gradnja, 
             wo wir als <strong>Arbeitsvermittler</strong> 
             und <strong>Dienstleister</strong> europaweit 
             Fachkräfte mit Unternehmen verbinden.
@@ -149,7 +153,7 @@
       <div class="culture-carousel-track">
         <!-- Slide 1 -->
         <div class="culture-slide">
-           <img src="assets/img/26.jpg" alt="">
+           <img src="assets/new/worker colab communiocation.png" alt="Team events">
           <div class="culture-caption">
             <p>
               Team-Events und interkulturelle Workshops 
@@ -159,7 +163,7 @@
         </div>
         <!-- Slide 2 -->
         <div class="culture-slide">
-          <img src="assets/img/24.jpg" alt="">
+          <img src="assets/new/three worker .png" alt="Training and development">
           <div class="culture-caption">
             <p>
               Regelmäßige Schulungen halten uns 
@@ -226,7 +230,7 @@
         </div>
         <div class="achievement-item">
           <h3>Award</h3>
-          <p>“Bester Bau-Handlungsdienstleister” (via Remix)</p>
+          <p>"Bester Bau-Handlungsdienstleister" (via Remix)</p>
         </div>
       </div>
       <p class="achievements-note">
@@ -286,8 +290,8 @@
         und echten kulturellen Austausch.
       </p>
       <div class="impact-img-row">
-        <img src="assets/img/25.jpg" alt="Sprachkurs">
-        <img src="assets/img/26.jpg" alt="Training im Partnerland">
+        <img src="assets/new/cleaing person two.png" alt="Sprachkurs">
+        <img src="assets/new/fours peopel wiht constuction dres.png" alt="Training im Partnerland">
       </div>
     </section>
 
@@ -337,14 +341,14 @@
       <div class="hero-container">
         <!-- Left Column: Image or Video -->
         <div class="hero-image">
-          <img src="assets/img/29.jpg" alt="Our Story">
+          <img src="assets/new/constuciton worker.png" alt="Our Story">
         </div>
         <!-- Right Column: Intro Text -->
         <div class="hero-text">
           <h1>Who We Are &amp; What Drives Us</h1>
           <p>
             Discover our evolution from 
-            <strong>Remix</strong> to Job Werke d.o.o., 
+            <strong>Remix</strong> to Remix Gradnja, 
             bridging global <strong>talent</strong> 
             and European <strong>business</strong> 
             through direct recruitment or full-service solutions.
@@ -403,7 +407,7 @@
       </div>
       <!-- Founder Quote / Info -->
       <blockquote class="founder-quote">
-        “Our aim is to connect people and opportunities – no matter their origin.”
+        "Our aim is to connect people and opportunities – no matter their origin."
         <br />– Drago Ćosić, Founder &amp; CEO
       </blockquote>
     </section>
@@ -418,7 +422,7 @@
       <div class="culture-carousel-track">
         <!-- Slide 1 -->
         <div class="culture-slide">
-          <img src="assets/img/26.jpg" alt="Team event">
+          <img src="assets/new/worker colab communiocation.png" alt="Team event">
           <div class="culture-caption">
             <p>
               Team-building events and workshops 
@@ -428,7 +432,7 @@
         </div>
         <!-- Slide 2 -->
         <div class="culture-slide">
-          <img src="assets/img/24.jpg" alt="Workshop session">
+          <img src="assets/new/three worker .png" alt="Workshop session">
           <div class="culture-caption">
             <p>
               Ongoing training keeps us updated 
@@ -495,7 +499,7 @@
         </div>
         <div class="achievement-item">
           <h3>Award</h3>
-          <p>“Best Construction Service Provider” (via Remix)</p>
+          <p>"Best Construction Service Provider" (via Remix)</p>
         </div>
       </div>
       <p class="achievements-note">
@@ -520,7 +524,7 @@
           <h3>Drago Ćosić</h3>
           <span class="role">CEO &amp; Founder</span>
           <p>
-            “Our future relies on bridging cultural gaps and opening new markets.”
+            "Our future relies on bridging cultural gaps and opening new markets."
           </p>
         </div>
         <!-- Member 2 -->
@@ -529,7 +533,7 @@
           <h3>Lannon Lee</h3>
           <span class="role">Head of Recruiting</span>
           <p>
-            “People first – everything else follows naturally.”
+            "People first – everything else follows naturally."
           </p>
         </div>
         <!-- Member 3 -->
@@ -538,7 +542,7 @@
           <h3>Milan Adhikari</h3>
           <span class="role">Project Manager (Service)</span>
           <p>
-            “Efficiency is the key to seamless, top-quality service.”
+            "Efficiency is the key to seamless, top-quality service."
           </p>
         </div>
       </div>
@@ -548,12 +552,12 @@
     <section class="impact-highlight-en">
       <h2>Our Commitment</h2>
       <p>
-        We support language and skill programs in our candidates’ home countries,
+        We support language and skill programs in our candidates' home countries,
         fostering long-term integration and cultural exchange.
       </p>
       <div class="impact-img-row">
-        <img src="assets/img/25.jpg" alt="Language Classes">
-        <img src="assets/img/26.jpg" alt="Practical Training">
+        <img src="assets/new/cleaing person two.png" alt="Language Classes">
+        <img src="assets/new/fours peopel wiht constuction dres.png" alt="Practical Training">
       </div>
     </section>
 
@@ -598,7 +602,7 @@
       <a href="datenschutz.html?lang=de">Datenschutz</a> &bull; 
       <a href="cookie.html?lang=de">Cookie-Einstellungen</a>
     </p>
-    <p>&copy; 2024 Job Werke d.o.o. Alle Rechte vorbehalten.</p>
+    <p>&copy; 2024 Remix Gradnja. Alle Rechte vorbehalten.</p>
   </footer>
 
   <!-- OPTIONAL: Scripts -->

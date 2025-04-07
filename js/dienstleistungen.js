@@ -4,11 +4,33 @@
 ***************************************************************/
 
 /* 1) MOBILE NAV TOGGLE */
-const mobileToggle = document.getElementById('mobileToggle');
-const navbarMenu = document.getElementById('navbarMenu');
-mobileToggle.addEventListener('click', () => {
-  navbarMenu.classList.toggle('nav-open');
-});
+const menuToggle = document.getElementById('menuToggle');
+const navMenu = document.getElementById('navMenu');
+
+if (menuToggle && navMenu) {
+  menuToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+    
+    // Optional: Toggle animation for hamburger icon
+    const spans = menuToggle.querySelectorAll('span');
+    spans.forEach(span => {
+      span.classList.toggle('active');
+    });
+  });
+  
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+      if (navMenu.classList.contains('active')) {
+        navMenu.classList.remove('active');
+        const spans = menuToggle.querySelectorAll('span');
+        spans.forEach(span => {
+          span.classList.remove('active');
+        });
+      }
+    }
+  });
+}
 
 /* 2) LANGUAGE TOGGLE */
 const langBtn = document.getElementById('toggleLang');
@@ -16,11 +38,29 @@ const germanDivs = document.querySelectorAll('.german');
 const englishDivs = document.querySelectorAll('.english');
 let isGerman = true;
 
+// Check URL for language preference
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('lang') === 'en') {
+  isGerman = false;
+  germanDivs.forEach(el => el.classList.toggle('hidden', !isGerman));
+  englishDivs.forEach(el => el.classList.toggle('hidden', isGerman));
+  langBtn.textContent = isGerman ? 'English' : 'Deutsch';
+  // Update language fields in forms if they exist
+  document.querySelectorAll('input[name="language"]').forEach(el => {
+    el.value = 'en';
+  });
+}
+
 langBtn.addEventListener('click', () => {
   isGerman = !isGerman;
   germanDivs.forEach(el => el.classList.toggle('hidden', !isGerman));
   englishDivs.forEach(el => el.classList.toggle('hidden', isGerman));
   langBtn.textContent = isGerman ? 'English' : 'Deutsch';
+  
+  // Update language fields in forms
+  document.querySelectorAll('input[name="language"]').forEach(el => {
+    el.value = isGerman ? 'de' : 'en';
+  });
 });
 
 /* 3) FAQ ACCORDION */
@@ -56,6 +96,104 @@ function initFaqAccordion(containerSelector) {
 // Initialize FAQ for both German and English
 initFaqAccordion('.faq-accordion-de');
 initFaqAccordion('.faq-accordion-en');
+
+/* 4) APPOINTMENT CHECKBOX TOGGLE */
+function initAppointmentFields() {
+  const appointmentCheckboxes = document.querySelectorAll('input[name="wantsAppointment"]');
+  
+  appointmentCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+      const fieldsContainer = this.closest('.checkbox-row').querySelector('.appointment-fields');
+      if (fieldsContainer) {
+        fieldsContainer.style.display = this.checked ? 'flex' : 'none';
+        
+        // If checkbox is unchecked, clear date/time fields
+        if (!this.checked) {
+          const dateInput = fieldsContainer.querySelector('input[name="terminDate"]');
+          const timeInput = fieldsContainer.querySelector('input[name="terminTime"]');
+          if (dateInput) dateInput.value = '';
+          if (timeInput) timeInput.value = '';
+        }
+      }
+    });
+  });
+}
+
+/* 5) QUICK CONTACT FORMS */
+function initQuickContactForms() {
+  const quickForms = document.querySelectorAll('.quick-form');
+  
+  quickForms.forEach(form => {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const email = form.querySelector('input[name="email"]').value;
+      const language = form.querySelector('input[name="language"]').value;
+      
+      // Create a temporary form to submit with all required fields
+      const tempForm = document.createElement('form');
+      tempForm.method = 'POST';
+      tempForm.action = '/send-email';
+      tempForm.style.display = 'none';
+      
+      // Add all required fields
+      const fields = [
+        { name: 'email', value: email },
+        { name: 'language', value: language },
+        { name: 'name', value: 'Website Inquiry' },
+        { name: 'message', value: 'Quick contact request from services page.' },
+        { name: 'hp', value: '' }
+      ];
+      
+      fields.forEach(field => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = field.name;
+        input.value = field.value;
+        tempForm.appendChild(input);
+      });
+      
+      // Append to body and submit
+      document.body.appendChild(tempForm);
+      tempForm.submit();
+    });
+  });
+}
+
+// Initialize all forms when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  initAppointmentFields();
+  initQuickContactForms();
+  
+  // Set today as min date for appointment fields
+  const dateInputs = document.querySelectorAll('input[type="date"]');
+  const today = new Date().toISOString().split('T')[0];
+  dateInputs.forEach(input => {
+    input.min = today;
+  });
+  
+  // Add event handler for all contact forms to validate before submission
+  const contactForms = document.querySelectorAll('form[action="/send-email"]');
+  contactForms.forEach(form => {
+    if (!form.classList.contains('quick-form')) { // Skip quick forms as they're handled separately
+      form.addEventListener('submit', function(e) {
+        const appointmentCheckbox = form.querySelector('input[name="wantsAppointment"]');
+        
+        if (appointmentCheckbox && appointmentCheckbox.checked) {
+          const dateInput = form.querySelector('input[name="terminDate"]');
+          const timeInput = form.querySelector('input[name="terminTime"]');
+          
+          if (!dateInput.value || !timeInput.value) {
+            e.preventDefault();
+            alert(isGerman ? 
+              'Bitte wählen Sie Datum und Uhrzeit für Ihren Termin.' : 
+              'Please select both date and time for your appointment.');
+          }
+        }
+      });
+    }
+  });
+});
 
 /* 4) OPTIONAL: ADVANTAGES HORIZONTAL SCROLL
    If you want to show left/right arrows for
